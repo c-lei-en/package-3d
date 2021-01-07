@@ -53,6 +53,10 @@ module.exports = {
       new webpack.DefinePlugin({
         CESIUM_BASE_URL: JSON.stringify("./")
       })
-    ]
+    ],
+    module: {
+      //解决Critical dependency: require function is used in a way in which dependencies cannot be statically extracted的问题
+      unknownContextCritical: false
+    }
   }
 };

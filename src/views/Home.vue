@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import addLayer from "@/mapconfig/addlayer/addLayer";
 export default {
   name: "Home",
   mounted() {
@@ -27,7 +28,11 @@ export default {
       orderIndependentTranslucency: true, // * 如果为true并且配置支持它，则使用顺序无关的半透明性
       shadows: false, // * 阴影效果
       projectionPicker: false, // * 透视投影和正投影之间切换
-      requestRenderMode: true // * 在指定情况下进行渲染,提高性能
+      requestRenderMode: true, // * 在指定情况下进行渲染,提高性能
+      imageryProvider: addLayer(
+        "arcgis",
+        "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer"
+      )
     });
     window.viewer._cesiumWidget._creditContainer.style.display = "none"; // * 隐藏版权信息
   }

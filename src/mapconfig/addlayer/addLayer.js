@@ -1,4 +1,12 @@
 const Cesium = require("cesium/Cesium");
+
+/**
+ * @description: 创建一个指定类型的图层并返回
+ * @param {*} type 要创建的图层的类型
+ * @param {*} url 地图的地址
+ * @param {*} options 图层的配置项
+ * @return {*} 返回一个创建好的指定类型的图层
+ */
 function addLayer(type, url, options) {
   let layer = null;
   switch (type) {

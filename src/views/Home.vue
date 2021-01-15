@@ -4,6 +4,7 @@
 
 <script>
 import addLayer from "@/mapconfig/addlayer/addLayer";
+import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 export default {
   name: "Home",
   mounted() {
@@ -29,10 +30,10 @@ export default {
       shadows: false, // * 阴影效果
       projectionPicker: false, // * 透视投影和正投影之间切换
       requestRenderMode: true, // * 在指定情况下进行渲染,提高性能
-      imageryProvider: addLayer(
-        "arcgis",
-        "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineCommunity/MapServer"
-      )
+      imageryProvider: addLayer("bing", "https://dev.virtualearth.net", {
+        key: "AmXdbd8UeUJtaRSn7yVwyXgQlBBUqliLbHpgn2c76DfuHwAXfRrgS5qwfHU6Rhm8"
+      }),
+      terrainProvider: addTerrain("ionTerrain")
     });
     window.viewer._cesiumWidget._creditContainer.style.display = "none"; // * 隐藏版权信息
   }

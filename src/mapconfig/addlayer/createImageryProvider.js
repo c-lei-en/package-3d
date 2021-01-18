@@ -1,17 +1,17 @@
 const Cesium = require("cesium/Cesium");
 
 /**
- * @description: 创建一个指定类型的图层并返回
- * @param {*} type 要创建的图层的类型
+ * @description: 创建一个imageryProvider并返回
+ * @param {*} type 要创建的imageryProvider的类型
  * @param {*} url 地图的地址
- * @param {*} options 图层的配置项
- * @return {*} 返回一个创建好的指定类型的图层
+ * @param {*} options imageryProvider的配置项
+ * @return {*} 返回一个imageryProvider
  */
-function addLayer(type, url, options) {
-  let layer = null;
+function createImageryProvider(type, url, options) {
+  let imageryProvider = null;
   switch (type) {
     case "arcgis":
-      layer = new Cesium.ArcGisMapServerImageryProvider({
+      imageryProvider = new Cesium.ArcGisMapServerImageryProvider({
         url: url
       });
       break;
@@ -19,7 +19,7 @@ function addLayer(type, url, options) {
       if (!options.key) {
         throw new Error("使用bing地图必须传入options.key!");
       }
-      layer = new Cesium.BingMapsImageryProvider({
+      imageryProvider = new Cesium.BingMapsImageryProvider({
         url: url,
         key: options.key,
         mapStyle: options.mapStyle
@@ -28,15 +28,15 @@ function addLayer(type, url, options) {
       });
       break;
     case "google": // * 提供对托管在Google Earth企业服务器上的数据的访问
-      layer = new Cesium.GoogleEarthEnterpriseImageryProvider({
+      imageryProvider = new Cesium.GoogleEarthEnterpriseImageryProvider({
         metaData: new Cesium.GoogleEarthEnterpriseMetaData(url)
       });
       break;
     case "grid": // * 地图网格
-      layer = new Cesium.GridImageryProvider();
+      imageryProvider = new Cesium.GridImageryProvider();
       break;
     case "ion": // * 在网站 https://cesium.com/ion/ 注册一个账号;点击"Access Token"，跳转到Access Tokens page页面;选择Default默认的access token拷贝到contents中
-      layer = new Cesium.IonImageryProvider({
+      imageryProvider = new Cesium.IonImageryProvider({
         assetId: url
       });
       break;
@@ -44,25 +44,25 @@ function addLayer(type, url, options) {
       if (!options.accessToken) {
         throw new Error("使用bing地图必须传入options.accessToken!");
       }
-      layer = new Cesium.MapboxImageryProvider({
+      imageryProvider = new Cesium.MapboxImageryProvider({
         mapId: `mapbox.${options.mapId}`,
         accessToken: options.accessToken
       });
       break;
     case "mapboxStyle":
-      layer = new Cesium.MapboxStyleImageryProvider({
+      imageryProvider = new Cesium.MapboxStyleImageryProvider({
         styleId: options.styleId,
         accessToken: options.accessToken
       });
       break;
     case "osm":
-      layer = new Cesium.OpenStreetMapImageryProvider({
+      imageryProvider = new Cesium.OpenStreetMapImageryProvider({
         fileExtension: "png",
         url: "https://a.tile.openstreetmap.org/"
       });
       break;
     case "singleTile": // * 传入图片的url时要require require("@/assets/cat.jpg")
-      layer = new Cesium.SingleTileImageryProvider({
+      imageryProvider = new Cesium.SingleTileImageryProvider({
         url: url,
         rectangle: options.rectangle
           ? Cesium.Rectangle(
@@ -75,20 +75,20 @@ function addLayer(type, url, options) {
       });
       break;
     case "tileCoordinates": // * 网格瓦片 包括网格瓦片等级、X、Y序号
-      layer = new Cesium.TileCoordinatesImageryProvider();
+      imageryProvider = new Cesium.TileCoordinatesImageryProvider();
       break;
     case "tileMapService": // * 访问瓦片图的Rest接口
-      layer = new Cesium.TileMapServiceImageryProvider({
+      imageryProvider = new Cesium.TileMapServiceImageryProvider({
         url: url
       });
       break;
     case "urlTemplate": // * 通过使用指定的URL模板请求贴图来提供图像。通常用于加载拥有固定规范url的地图,如'xyz'方式的地图
-      layer = new Cesium.UrlTemplateImageryProvider({
+      imageryProvider = new Cesium.UrlTemplateImageryProvider({
         url: url
       });
       break;
     case "wms": // * 适用于所有符合wms标准的地图
-      layer = new Cesium.WebMapServiceImageryProvider({
+      imageryProvider = new Cesium.WebMapServiceImageryProvider({
         url: url,
         layers: options.layer,
         parameters: {
@@ -98,7 +98,7 @@ function addLayer(type, url, options) {
       });
       break;
     case "wmts": // * 适用于所有符合wmts标准的地图
-      layer = new Cesium.WebMapTileServiceImageryProvider({
+      imageryProvider = new Cesium.WebMapTileServiceImageryProvider({
         url: url,
         layer: options.layer,
         style: options.style || "default",
@@ -124,7 +124,7 @@ function addLayer(type, url, options) {
     default:
       throw new Error("请选择正确的地图加载类型!");
   }
-  return layer;
+  return imageryProvider;
 }
 
-export default addLayer;
+export default createImageryProvider;

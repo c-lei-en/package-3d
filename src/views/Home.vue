@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import addLayer from "@/mapconfig/addlayer/addLayer";
+import createImageryProvider from "@/mapconfig/addlayer/createImageryProvider";
 import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 export default {
   name: "Home",
@@ -30,11 +30,24 @@ export default {
       shadows: false, // * 阴影效果
       projectionPicker: false, // * 透视投影和正投影之间切换
       requestRenderMode: true, // * 在指定情况下进行渲染,提高性能
-      imageryProvider: addLayer("bing", "https://dev.virtualearth.net", {
-        key: "AmXdbd8UeUJtaRSn7yVwyXgQlBBUqliLbHpgn2c76DfuHwAXfRrgS5qwfHU6Rhm8"
-      }),
+      imageryProvider: createImageryProvider("osm"),
       terrainProvider: addTerrain("ionTerrain")
     });
+    let layers = window.viewer.scene.imageryLayers;
+    let imaPro = createImageryProvider(
+      "arcgis",
+      "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"
+    );
+    // * 添加imageryProvider
+    let arcLayer = layers.addImageryProvider(imaPro);
+    // * 设置图层的可视性
+    arcLayer.show = true;
+    // * 设置图层的透明度
+    arcLayer.alpha = 0.5;
+    // * 添加图层
+    // layers.add(arcLayer);
+    // * 移除图层 第二个参数表明这个图层移除后是否销毁,如果不指明,默认销毁
+    // layers.remove(arcLayer, false)
     window.viewer._cesiumWidget._creditContainer.style.display = "none"; // * 隐藏版权信息
   }
 };

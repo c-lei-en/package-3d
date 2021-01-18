@@ -3,7 +3,7 @@
 ## arcgis
 
 ```js
-addLayer(
+createImageryProvider(
   "arcgis",
   "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"
 )
@@ -14,7 +14,7 @@ addLayer(
 ## bing
 
 ```js
-addLayer("bing", "https://dev.virtualearth.net", {
+createImageryProvider("bing", "https://dev.virtualearth.net", {
   key: "AmXdbd8UeUJtaRSn7yVwyXgQlBBUqliLbHpgn2c76DfuHwAXfRrgS5qwfHU6Rhm8"
 })
 ```
@@ -24,7 +24,7 @@ addLayer("bing", "https://dev.virtualearth.net", {
 ## grid
 
 ```js
-addLayer("grid")
+createImageryProvider("grid")
 ```
 
 ![grid](./displaymap/grid.JPG)
@@ -32,7 +32,7 @@ addLayer("grid")
 ## mapbox
 
 ```js
-addLayer("mapbox", "", {
+createImageryProvider("mapbox", "", {
   mapId: "satellite",
   accessToken:"pk.eyJ1IjoibHM4NzAwNjEwMTEiLCJhIjoiY2tqYXZlZ2JrMDI5bTJzcDJmdDNteGhsNy0wTn4B1ce9Q4U5GnPso5iA"
 })
@@ -43,7 +43,7 @@ addLayer("mapbox", "", {
 ## mapboxStyle
 
 ```js
-addLayer("mapboxStyle", "", {
+createImageryProvider("mapboxStyle", "", {
   styleId: "dark-v10",
   accessToken:"pk.eyJ1IjoibHM4NzAwNjEwMTEiLCJhIjoiY2tqYXZlZ2JrMDI5bTJzcDJmdDNteGhsNy0wTn4B1ce9Q4U5GnPso5iA"
 })
@@ -54,7 +54,7 @@ addLayer("mapboxStyle", "", {
 ## osm
 
 ```js
-addLayer("osm")
+createImageryProvider("osm")
 ```
 
 ![osm](./displaymap/osm.JPG)
@@ -62,7 +62,7 @@ addLayer("osm")
 ## singleTile
 
 ```js
-addLayer("singleTile", require("@/assets/cat.jpg"), {
+createImageryProvider("singleTile", require("@/assets/cat.jpg"), {
   rectangle: [0, 0, 0, 0]
 })
 ```
@@ -72,7 +72,7 @@ addLayer("singleTile", require("@/assets/cat.jpg"), {
 ## tileCoordinates
 
 ```js
-addLayer("tileCoordinates")
+createImageryProvider("tileCoordinates")
 ```
 
 ![tileCoordinates](./displaymap/tileCoordinates.JPG)
@@ -80,7 +80,7 @@ addLayer("tileCoordinates")
 ## urlTemplate
 
 ```js
-addLayer(
+createImageryProvider(
   "urlTemplate",
   "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 )
@@ -91,7 +91,7 @@ addLayer(
 ## wms
 
 ```js
-addLayer("wms", "http://localhost:8090/geoserver/topp/wms", {
+createImageryProvider("wms", "http://localhost:8090/geoserver/topp/wms", {
   layer: "topp:states"
 })
 ```
@@ -101,7 +101,7 @@ addLayer("wms", "http://localhost:8090/geoserver/topp/wms", {
 ## wmts
 
 ```js
-addLayer(
+createImageryProvider(
   "wmts",
   "http://t0.tianditu.gov.cn/img_w/wmts?tk=c0b9cb30599dd11c468c8aaa2fc1863a",
   {
@@ -116,7 +116,7 @@ addLayer(
 
 ```js
 
-addLayer(
+createImageryProvider(
   "wmts",
   "http://localhost:8090/geoserver/gwc/service/wmts",
   {

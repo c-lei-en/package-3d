@@ -27,6 +27,17 @@ function addTerrain(type, url, options = {}) {
     case "ellipsoidTerrain": // * cesium默认采用,高度为0的地形
       terrain = new Cesium.EllipsoidTerrainProvider();
       break;
+    // ! 暂无此项示例
+    case "googleTerrain": // * Google地球REST API提供平铺地形
+      terrain = new Cesium.GoogleEarthEnterpriseTerrainProvider({
+        metadata: new Cesium.GoogleEarthEnterpriseMetadata(url)
+      });
+      break;
+    // ! 暂无此项示例
+    case "VRTheWorldTerrain": // * 地形提供器，通过细分从 VT M+K VR-TheWorld 服务器检索的高度地图来生成地形几何
+      terrain = new Cesium.VRTheWorldTerrainProvider({
+        url: url
+      });
   }
   return terrain;
 }

@@ -15,6 +15,18 @@ addTerrain(
 
 ![arcgisTerrain](./displayTerrain/WorldElevation3D.JPG)
 
+## cesiumTerrain
+
+```js
+addTerrain(
+  "cesiumTerrain",
+  "http://localhost:8091/jiuzhaigou"
+)
+```
+
+![cesiumTerrain](./displayTerrain/cesiumTerrain.JPG)  
+**在使用自己的地形服务之前一定要注意DEM的配准**
+
 ## ionTerrain
 
 ```js

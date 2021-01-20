@@ -5,6 +5,7 @@
 <script>
 import createImageryProvider from "@/mapconfig/addlayer/createImageryProvider";
 import addTerrain from "@/mapconfig/addTerrain/addTerrain";
+import Camera from "@/mapconfig/camera/camera";
 export default {
   name: "Home",
   mounted() {
@@ -33,22 +34,28 @@ export default {
       imageryProvider: createImageryProvider("osm"),
       terrainProvider: addTerrain("ionTerrain")
     });
-    let layers = window.viewer.scene.imageryLayers;
-    let imaPro = createImageryProvider(
-      "arcgis",
-      "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"
-    );
+    // let layers = window.viewer.scene.imageryLayers;
+    // let imaPro = createImageryProvider(
+    //   "arcgis",
+    //   "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"
+    // );
     // * 添加imageryProvider
-    let arcLayer = layers.addImageryProvider(imaPro);
+    // let arcLayer = layers.addImageryProvider(imaPro);
     // * 设置图层的可视性
-    arcLayer.show = true;
+    // arcLayer.show = true;
     // * 设置图层的透明度
-    arcLayer.alpha = 0.5;
+    // arcLayer.alpha = 0.5;
     // * 添加图层
     // layers.add(arcLayer);
     // * 移除图层 第二个参数表明这个图层移除后是否销毁,如果不指明,默认销毁
     // layers.remove(arcLayer, false)
     window.viewer._cesiumWidget._creditContainer.style.display = "none"; // * 隐藏版权信息
+    let camera = new Camera();
+    camera.setView([-117.16, 32.71, 500.0], {
+      heading: 30,
+      pitch: -90,
+      roll: 0.0
+    });
   }
 };
 </script>

@@ -50,11 +50,29 @@ export default {
     // * 移除图层 第二个参数表明这个图层移除后是否销毁,如果不指明,默认销毁
     // layers.remove(arcLayer, false)
     window.viewer._cesiumWidget._creditContainer.style.display = "none"; // * 隐藏版权信息
+    // let scene = window.viewer.scene;
+
+    // * 禁止掉默认事件
+    // scene.screenSpaceCameraController.enableRotate = false;
+    // scene.screenSpaceCameraController.enableTranslate = false;
+    // scene.screenSpaceCameraController.enableZoom = false;
+    // scene.screenSpaceCameraController.enableTilt = false;
+    // scene.screenSpaceCameraController.enableLook = false;
+
     let camera = new Camera();
-    camera.setView([-117.16, 32.71, 500.0], {
-      heading: 30,
+    camera.setView([-117.16, 32.71, 10000000.0], {
+      heading: 0,
       pitch: -90,
-      roll: 0.0
+      roll: 0
+    });
+    // camera.cameraControl();
+    camera.flyTo({
+      destination: [-117.16, 32.71, 15000.0],
+      orientation: {
+        heading: 175.0,
+        pitch: -35.0,
+        roll: 0.0
+      }
     });
   }
 };

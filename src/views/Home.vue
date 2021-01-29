@@ -6,6 +6,7 @@
 import createImageryProvider from "@/mapconfig/addlayer/createImageryProvider";
 import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 import Camera from "@/mapconfig/camera/camera";
+import createDataSource from "@/mapconfig/dataSource/dataSource";
 export default {
   name: "Home",
   mounted() {
@@ -65,14 +66,38 @@ export default {
       pitch: -90,
       roll: 0
     });
+
+    // * 相机控制
     // camera.cameraControl();
-    camera.flyTo({
-      destination: [-117.16, 32.71, 15000.0],
-      orientation: {
-        heading: 175.0,
-        pitch: -35.0,
-        roll: 0.0
-      }
+
+    // * 相机飞行
+    // camera.flyTo({
+    //   destination: [-117.16, 32.71, 15000.0],
+    //   orientation: {
+    //     heading: 175.0,
+    //     pitch: -35.0,
+    //     roll: 0.0
+    //   }
+    // });
+
+    // * 创建customDataSource
+    // let dataSource = createDataSource("customDataSource", "myData");
+    // dataSource.entities.add({
+    //   position: this.Cesium.Cartesian3.fromDegrees(1, 2, 0),
+    //   billboard: {
+    //     image: require("../assets/cat.jpg")
+    //   }
+    // });
+    // window.viewer.dataSources.add(dataSource);
+
+    // * 创建kmlDataSource
+    let dataSource = createDataSource(
+      "kmlDataSource",
+      "@/SampleData/kml/bikeRide.kml",
+      { clampToGround: true }
+    );
+    dataSource.then(res => {
+      window.viewer.dataSources.add(res);
     });
   }
 };

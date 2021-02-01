@@ -61,7 +61,7 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([-117.16, 32.71, 10000000.0], {
+    camera.setView([0, 0, 10000000.0], {
       heading: 0,
       pitch: -90,
       roll: 0
@@ -91,14 +91,27 @@ export default {
     // window.viewer.dataSources.add(dataSource);
 
     // * 创建kmlDataSource
+    // let dataSource = createDataSource(
+    //   "kmlDataSource",
+    //   "@/SampleData/kml/bikeRide.kml",
+    //   { clampToGround: true }
+    // );
+    // dataSource.then(res => {
+    //   window.viewer.dataSources.add(res);
+    // });
+
+    // * 创建GeoJsonDataSource
     let dataSource = createDataSource(
-      "kmlDataSource",
-      "@/SampleData/kml/bikeRide.kml",
-      { clampToGround: true }
+      "json",
+      "../SampleData/simplestyles.geojson",
+      {
+        clampToGround: true
+      }
     );
     dataSource.then(res => {
-      window.viewer.dataSources.add(res);
+      window.viewer.dataSource.add(res);
     });
+    window.viewer.zoomTo(dataSource);
   }
 };
 </script>

@@ -13,6 +13,11 @@ function dataSource(type, url, options = {}) {
         clampToGround: options.clampToGround || false
       });
       break;
+    case "json": // * 可以加载geojson或者topojson
+      dataSource = new Cesium.GeoJsonDataSource.load(url, {
+        clampToGround: options.clampToGround || false
+      });
+      break;
     default:
       break;
   }

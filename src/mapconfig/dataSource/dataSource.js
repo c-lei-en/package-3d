@@ -18,6 +18,9 @@ function dataSource(type, url, options = {}) {
         clampToGround: options.clampToGround || false
       });
       break;
+    case "czml":
+      dataSource = new Cesium.CzmlDataSource.load(url);
+      break;
     default:
       break;
   }

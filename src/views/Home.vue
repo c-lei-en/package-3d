@@ -6,13 +6,14 @@
 import createImageryProvider from "@/mapconfig/addlayer/createImageryProvider";
 import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 import Camera from "@/mapconfig/camera/camera";
-import createDataSource from "@/mapconfig/dataSource/dataSource";
+// import createDataSource from "@/mapconfig/dataSource/dataSource";
+import createEntity from "@/mapconfig/entity/entity";
 export default {
   name: "Home",
   mounted() {
     window.viewer = new this.Cesium.Viewer("cesiumContainer", {
-      animation: true, // * 左下角圆盘 速度控制器
-      shouldAnimate: true, // * 当动画控件出现，用来控制是否通过旋转控件，旋转场景
+      animation: false, // * 左下角圆盘 速度控制器
+      shouldAnimate: false, // * 当动画控件出现，用来控制是否通过旋转控件，旋转场景
       baseLayerPicker: false, // * 右上角图层选择器
       fullscreenButton: false, // * 右下角全屏按钮
       vrButton: false, // * 右下角vr按钮
@@ -71,118 +72,295 @@ export default {
     // camera.cameraControl();
 
     // * 相机飞行
-    // camera.flyTo({
-    //   destination: [-117.16, 32.71, 15000.0],
-    //   orientation: {
-    //     heading: 175.0,
-    //     pitch: -35.0,
-    //     roll: 0.0
-    //   }
-    // });
+    {
+      // camera.flyTo({
+      //   destination: [-117.16, 32.71, 15000.0],
+      //   orientation: {
+      //     heading: 175.0,
+      //     pitch: -35.0,
+      //     roll: 0.0
+      //   }
+      // });
+    }
 
-    // * 创建customDataSource
-    // let dataSource = createDataSource("customDataSource", "myData");
-    // dataSource.entities.add({
-    //   position: this.Cesium.Cartesian3.fromDegrees(1, 2, 0),
-    //   billboard: {
-    //     image: require("../assets/cat.jpg")
-    //   }
-    // });
-    // window.viewer.dataSources.add(dataSource);
+    // ? dataSource
+    {
+      // * 创建customDataSource
+      {
+        // let dataSource = createDataSource("customDataSource", "myData");
+        // dataSource.entities.add({
+        //   position: this.Cesium.Cartesian3.fromDegrees(1, 2, 0),
+        //   billboard: {
+        //     image: require("../assets/cat.jpg")
+        //   }
+        // });
+        // window.viewer.dataSources.add(dataSource);
+      }
 
-    // * 创建kmlDataSource
-    // let dataSource = createDataSource(
-    //   "kmlDataSource",
-    //   "@/SampleData/kml/bikeRide.kml",
-    //   { clampToGround: true }
-    // );
-    // dataSource.then(res => {
-    //   window.viewer.dataSources.add(res);
-    // });
+      // * 创建kmlDataSource
+      {
+        // let dataSource = createDataSource(
+        //   "kmlDataSource",
+        //   "@/SampleData/kml/bikeRide.kml",
+        //   { clampToGround: true }
+        // );
+        // dataSource.then(res => {
+        //   window.viewer.dataSources.add(res);
+        // });
+      }
 
-    // * 创建GeoJsonDataSource
-    // let dataSource = createDataSource(
-    //   "json",
-    //   "http://localhost:8091/SampleData/simplestyles.geojson",
-    //   {
-    //     clampToGround: true
-    //   }
-    // );
-    // dataSource.then(res => {
-    //   console.log(res);
-    //   window.viewer.dataSources.add(res);
-    //   window.viewer.zoomTo(dataSource);
-    // });
+      // * 创建GeoJsonDataSource
+      {
+        // let dataSource = createDataSource(
+        //   "json",
+        //   "http://localhost:8091/SampleData/simplestyles.geojson",
+        //   {
+        //     clampToGround: true
+        //   }
+        // );
+        // dataSource.then(res => {
+        //   console.log(res);
+        //   window.viewer.dataSources.add(res);
+        //   window.viewer.zoomTo(dataSource);
+        // });
+      }
 
-    // * 创建topojson
-    // let dataSource = createDataSource(
-    //   "json",
-    //   "http://localhost:8091/SampleData/ne_10m_us_states.topojson"
-    // );
-    // dataSource.then(res => {
-    //   let entities = res.entities.values;
-    //   for (let entity of entities) {
-    //     if (this.Cesium.defined(entity.polygon)) {
-    //       entity.polygon.material = this.Cesium.Color.fromRandom({
-    //         red: 0.1,
-    //         maximumGreen: 0.5,
-    //         minimumBlue: 0.5,
-    //         alpha: 0.5
-    //       });
-    //       entity.polygon.classificationType = this.Cesium.ClassificationType.TERRAIN;
-    //       let polyPositions = entity.polygon.hierarchy.getValue(
-    //         this.Cesium.JulianDate.now()
-    //       ).positions;
-    //       let polyCenter = this.Cesium.BoundingSphere.fromPoints(polyPositions)
-    //         .center;
-    //       polyCenter = this.Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(
-    //         polyCenter
-    //       );
-    //       entity.position = polyCenter;
-    //       entity.label = {
-    //         text: entity.name,
-    //         showBackground: true,
-    //         scale: 0.6,
-    //         horizontalOrigin: this.Cesium.HorizontalOrigin.CENTER, // * 标签的左右位置
-    //         verticalOrigin: this.Cesium.VerticalOrigin.BOTTOM, // * 标签的垂直位置
-    //         distanceDisplayCondition: new this.Cesium.DistanceDisplayCondition(
-    //           10.0,
-    //           10000000.0
-    //         ), // * 标签离摄像机多远时显示
-    //         disableDepthTestDistance: 100.0
-    //       };
-    //     }
-    //   }
-    //   window.viewer.dataSources.add(res);
-    // });
+      // * 创建topojson
+      {
+        // let dataSource = createDataSource(
+        //   "json",
+        //   "http://localhost:8091/SampleData/ne_10m_us_states.topojson"
+        // );
+        // dataSource.then(res => {
+        //   let entities = res.entities.values;
+        //   for (let entity of entities) {
+        //     if (this.Cesium.defined(entity.polygon)) {
+        //       // *设置材质
+        //       entity.polygon.material = this.Cesium.Color.fromRandom({
+        //         red: 0.1,
+        //         maximumGreen: 0.5,
+        //         minimumBlue: 0.5,
+        //         alpha: 0.5
+        //       });
+        //       // * 多边形对地形和3Dtile进行区分
+        //       entity.polygon.classificationType = this.Cesium.ClassificationType.TERRAIN;
+        //       // * 获取多边形的中心位置
+        //       let polyPositions = entity.polygon.hierarchy.getValue(
+        //         this.Cesium.JulianDate.now()
+        //       ).positions;
+        //       let polyCenter = this.Cesium.BoundingSphere.fromPoints(polyPositions)
+        //         .center;
+        //       polyCenter = this.Cesium.Ellipsoid.WGS84.scaleToGeodeticSurface(
+        //         polyCenter
+        //       );
+        //       entity.position = polyCenter;
+        //       // * 设置实体的文字
+        //       entity.label = {
+        //         text: entity.name,
+        //         showBackground: true,
+        //         scale: 0.6,
+        //         horizontalOrigin: this.Cesium.HorizontalOrigin.CENTER, // * 标签的左右位置
+        //         verticalOrigin: this.Cesium.VerticalOrigin.BOTTOM, // * 标签的垂直位置
+        //         distanceDisplayCondition: new this.Cesium.DistanceDisplayCondition(
+        //           10.0,
+        //           10000000.0
+        //         ), // * 标签离摄像机多远时显示
+        //         disableDepthTestDistance: 100.0
+        //       };
+        //     }
+        //   }
+        //   window.viewer.dataSources.add(res);
+        // });
+      }
 
-    // * 创建czml
-    let dataSource = createDataSource(
-      "czml",
-      "http://localhost:8091/SampleData/simple.czml"
-    );
-    dataSource.then(res => {
-      window.viewer.dataSources.add(res);
-      let drone = res.entities.getById("Satellite/ISS");
-      drone.model = {
-        uri:
-          "http://localhost:8091/SampleData/models/CesiumDrone/CesiumDrone.glb",
-        minimumPixelSize: 128, // * 最小像素大小
-        maximumScale: 1000, // * 最大比例尺寸
-        silhouetteColor: this.Cesium.Color.WHITE, // * 轮廓颜色
-        silhouetteSize: 3 // * 轮廓大小
-      };
-      // * 计算并设置模型方向
-      drone.orientation = new this.Cesium.VelocityOrientationProperty(
-        drone.position
-      );
+      // * 创建czml
+      {
+        // let dataSource = createDataSource(
+        //   "czml",
+        //   "http://localhost:8091/SampleData/simple.czml"
+        // );
+        // dataSource.then(res => {
+        //   window.viewer.dataSources.add(res);
+        //   let drone = res.entities.getById("Satellite/ISS");
+        //   // * 替换glb
+        //   drone.model = {
+        //     uri:
+        //       "http://localhost:8091/SampleData/models/CesiumDrone/CesiumDrone.glb",
+        //     minimumPixelSize: 128, // * 最小像素大小
+        //     maximumScale: 1000, // * 最大比例尺寸
+        //     silhouetteColor: this.Cesium.Color.WHITE, // * 轮廓颜色
+        //     silhouetteSize: 3 // * 轮廓大小
+        //   };
+        //   // * 计算并设置模型方向
+        //   drone.orientation = new this.Cesium.VelocityOrientationProperty(
+        //     drone.position
+        //   );
+        //   // * 位置插值使运动平滑
+        //   drone.position.setInterpolationOptions({
+        //     interpolationDegree: 3,
+        //     interpolationAlgorithm: this.Cesium.HermitePolynomialApproximation // * 插值算法
+        //   });
+        // });
+      }
+    }
 
-      // * 位置插值使运动平滑
-      drone.position.setInterpolationOptions({
-        interpolationDegree: 3,
-        interpolationAlgorithm: this.Cesium.HermitePolynomialApproximation // * 插值算法
-      });
-    });
+    // ? entity
+    {
+      // * 创建polygon
+      {
+        //   let entity = createEntity("polygon", {
+        //   name: "entity",
+        //   hierarchy: [
+        //     -109.080842,
+        //     45.002073,
+        //     -105.91517,
+        //     45.002073,
+        //     -104.058488,
+        //     44.996596,
+        //     -104.053011,
+        //     43.002989,
+        //     -104.053011,
+        //     41.003906,
+        //     -105.728954,
+        //     40.998429,
+        //     -107.919731,
+        //     41.003906,
+        //     -109.04798,
+        //     40.998429,
+        //     -111.047063,
+        //     40.998429,
+        //     -111.047063,
+        //     42.000709,
+        //     -111.047063,
+        //     44.476286,
+        //     -111.05254,
+        //     45.002073
+        //   ],
+        //   height: 20000,
+        //   extrudedHeight: 250000,
+        //   material: this.Cesium.Color.RED.withAlpha(0.5),
+        //   outline: true
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建point
+      {
+        //   let entity = createEntity("point", {
+        //   name: "entity",
+        //   position: [-109.080842, 45.002073],
+        //   outlineWidth: 2
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建polyline
+      {
+        // let entity = createEntity("polyline", {
+        //   positions: [86.787554, 28.034714, 86.391273, 27.939707],
+        //   material: new this.Cesium.PolylineOutlineMaterialProperty({
+        //     color: this.Cesium.Color.ORANGE,
+        //     outlineWidth: 3,
+        //     outlineColor: this.Cesium.Color.RED,
+        //     glowPower: 0.2
+        //   }),
+        //   width: 5,
+        //   clampToGround: true
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建billboard
+      {
+        // let entity = createEntity("billboard", {
+        //   position: [86.787554, 28.034714],
+        //   image: require("../assets/cat.jpg"),
+        //   show: true,
+        //   pixelOffset: new this.Cesium.Cartesian2(0, -50),
+        //   eyeOffset: new this.Cesium.Cartesian3(0.0, 0.0, 0.0),
+        //   horizontalOrigin: this.Cesium.HorizontalOrigin.CENTER,
+        //   verticalOrigin: this.Cesium.VerticalOrigin.BOTTOM,
+        //   scale: 2.0,
+        //   color: this.Cesium.Color.WHITE,
+        //   rotation: this.Cesium.Math.PI_OVER_FOUR,
+        //   alignedAxis: this.Cesium.Cartesian3.ZERO,
+        //   width: 100,
+        //   height: 100
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建box
+      {
+        // let entity = createEntity("box", {
+        //   position: [86.787554, 28.034714],
+        //   show: true,
+        //   dimensions: [400000.0, 300000.0, 500000.0],
+        //   material: this.Cesium.Color.BLUE,
+        //   outline: true,
+        //   outlineColor: this.Cesium.Color.RED,
+        //   outlineWidth: 3.0
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建corridor
+      {
+        // let entity = createEntity("corridor", {
+        //   position: [-90.0, 40.0, -95.0, 40.0, -95.0, 35.0],
+        //   show: true,
+        //   height: 100000.0,
+        //   width: 200000.0,
+        //   extrudedHeight: 120000.0,
+        //   cornerType: this.Cesium.CornerType.BEVELED,
+        //   material: this.Cesium.Color.BLUE,
+        //   outline: true,
+        //   outlineColor: this.Cesium.Color.RED,
+        //   outlineWidth: 3.0
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建cylinder
+      {
+        // let entity = createEntity("cylinder", {
+        //   position: [-90.0, 40.0, 0],
+        //   show: true,
+        //   length: 100000.0,
+        //   topRadius: 200000.0,
+        //   bottomRadius: 300000.0,
+        //   material: this.Cesium.Color.BLUE,
+        //   outline: true,
+        //   outlineColor: this.Cesium.Color.RED,
+        //   outlineWidth: 3.0
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建ellipse
+      {
+        let entity = createEntity("ellipse", {
+          position: [-90.0, 40.0, 0],
+          show: true,
+          semiMajorAxis: 100000.0,
+          semiMinorAxis: 50000.0,
+          extrudedHeight: 3000.0,
+          material: this.Cesium.Color.BLUE,
+          outline: true,
+          outlineColor: this.Cesium.Color.RED,
+          outlineWidth: 3.0
+        });
+        let enti = window.viewer.entities.add(entity);
+        window.viewer.zoomTo(enti);
+      }
+    }
   }
 };
 </script>

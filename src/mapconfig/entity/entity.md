@@ -178,3 +178,133 @@ window.viewer.zoomTo(enti);
 ```
 
 ![ellipse](./displayEntity/ellipse.JPG)
+
+## ellipsoid
+
+```js
+let entity = createEntity("ellipsoid", {
+  position: [-90.0, 40.0, 0],
+  show: true,
+  radii: [200000.0, 200000.0, 300000.0],
+  material: this.Cesium.Color.BLUE,
+  outline: true,
+  outlineColor: this.Cesium.Color.RED,
+  outlineWidth: 3.0
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![ellipsoid](./displayEntity/ellipsoid.JPG)
+
+## label
+
+```js
+let entity = createEntity("label", {
+  position: [-90.0, 40.0, 0],
+  show: true,
+  text: "Philadelphia",
+  font: "40px Helvetica",
+  outlineWidth: 2,
+  backgroundColor: new this.Cesium.Color(0.5, 0.5, 0, 0.8),
+  showBackground: true
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![label](./displayEntity/label.JPG)
+
+## plane
+
+```js
+let entity = createEntity("plane", {
+  position: [-114.0, 40.0, 300000.0],
+  show: true,
+  dimensions: [400000.0, 300000.0], // * 指定平面宽高
+  fill: true,
+  outline: true,
+  outlineWidth: 2
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![plane](./displayEntity/plane.JPG)
+
+## polylineVolume
+
+```js
+let entity = createEntity("polylineVolume", {
+  positions: [
+    -90.0,
+    32.0,
+    0.0,
+    -90.0,
+    36.0,
+    100000.0,
+    -94.0,
+    36.0,
+    0.0
+  ],
+  show: true,
+  cornerType: this.Cesium.CornerType.BEVELED,
+  material: this.Cesium.Color.GREEN.withAlpha(0.5),
+  outline: true,
+  outlineColor: this.Cesium.Color.BLACK
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![polylineVolume](./displayEntity/polylineVolume.JPG)
+
+## rectangle
+
+```js
+let entity = createEntity("rectangle", {
+  coordinates: [-110.0, 30.0, -100.0, 40.0],
+  extrudedHeight: 300000.0,
+  fill: false,
+  outline: true,
+  outlineWidth: 2.0
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![rectangle](./displayEntity/rectangle.JPG)
+
+## wall
+
+```js
+let entity = createEntity("wall", {
+  positions: [
+    -107.0,
+    43.0,
+    100000.0,
+    -97.0,
+    43.0,
+    100000.0,
+    -97.0,
+    40.0,
+    100000.0,
+    -107.0,
+    40.0,
+    100000.0,
+    -107.0,
+    43.0,
+    100000.0
+  ],
+  maximumHeights: [100000, 200000, 100000, 200000, 100000],
+  minimumHeights: [0, 100000, 0, 100000, 0],
+  fill: false,
+  material: this.Cesium.Color.BLUE.withAlpha(0.5),
+  outline: true,
+  outlineWidth: 2.0
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![wall](./displayEntity/wall.JPG)

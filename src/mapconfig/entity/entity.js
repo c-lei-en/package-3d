@@ -18,7 +18,7 @@ function entity(type, options = {}) {
           outlineColor: options.outlineColor || Cesium.Color.BLACK, // * 边框颜色
           outlineWidth: options.outlineWidth || 1.0, // *边框宽度 只适用于非Windows系统
           classificationType:
-            options.classificationType || Cesium.ClassificationType.BOTH // * 多边形对地形和3Dtile进行区分
+            options.classificationType || Cesium.ClassificationType.BOTH // * 多边形对地形和3D tile进行区分
         }
       };
       break;
@@ -53,7 +53,7 @@ function entity(type, options = {}) {
           depthFailMaterial: options.depthFailMaterial, // * 线条位于地形下方时的材质,entity中失效,在Primitive中有效
           clampToGround: options.clampToGround || false, // * 是否依附在地形上面
           classificationType:
-            options.classificationType || Cesium.ClassificationType.BOTH, // * 对地形和3Dtile进行区分
+            options.classificationType || Cesium.ClassificationType.BOTH, // * 对地形和3D tile进行区分
           zIndex: options.zIndex || 0
         }
       };
@@ -70,7 +70,7 @@ function entity(type, options = {}) {
           image: options.image,
           scale: options.scale || 1.0,
           pixelOffset: options.pixelOffset || new Cesium.Cartesian2(0, 0), // * 偏移量
-          eyeOffset: options.eyeOffset || new Cesium.Cartesian3(0.0, 0.0, 0.0), // * eyeoffset能够基于viewer来移动label或billboard的渲染位置。x为正移动到viewer的右边，y为正向上移动，z为正就移动到屏幕里面
+          eyeOffset: options.eyeOffset || new Cesium.Cartesian3(0.0, 0.0, 0.0), // * eyeOffset能够基于viewer来移动label或billboard的渲染位置。x为正移动到viewer的右边，y为正向上移动，z为正就移动到屏幕里面
           horizontalOrigin:
             options.horizontalOrigin || Cesium.HorizontalOrigin.CENTER, // * 标签的左右位置
           verticalOrigin:
@@ -153,7 +153,8 @@ function entity(type, options = {}) {
         name: options.name || "示例",
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
-          options.position[1]
+          options.position[1],
+          options.position[2] || 0
         ),
         ellipse: {
           show: options.show || true,
@@ -171,6 +172,148 @@ function entity(type, options = {}) {
           classificationType:
             options.classificationType || Cesium.ClassificationType.BOTH,
           zIndex: options.zIndex || 0
+        }
+      };
+      break;
+    case "ellipsoid":
+      entity = {
+        name: options.name || "示例",
+        position: Cesium.Cartesian3.fromDegrees(
+          options.position[0],
+          options.position[1],
+          options.position[2] || 0
+        ),
+        ellipsoid: {
+          show: options.show || true,
+          radii: new Cesium.Cartesian3(
+            options.radii[0],
+            options.radii[1],
+            options.radii[2]
+          ), // * 椭球的尺寸
+          fill: options.fill || true,
+          material: options.material || Cesium.Color.WHITE,
+          outline: options.outline || false,
+          outlineColor: options.outlineColor || Cesium.Color.BLACK,
+          outlineWidth: options.outlineWidth || 1.0,
+          slicePartitions: options.slicePartitions || 64, // * 径向切片数量
+          stackPartitions: options.stackPartitions || 64 // * 堆栈数量
+        }
+      };
+      break;
+    case "label":
+      entity = {
+        name: options.name || "示例",
+        position: Cesium.Cartesian3.fromDegrees(
+          options.position[0],
+          options.position[1],
+          options.position[2] || 0
+        ),
+        label: {
+          show: options.show || true,
+          text: options.text || "示例",
+          font: options.font || "30px sans-serif",
+          style: options.style || Cesium.LabelStyle.FILL,
+          scale: options.scale || 1.0,
+          showBackground: options.showBackground || false,
+          backgroundColor:
+            options.backgroundColor ||
+            new Cesium.Color(0.165, 0.165, 0.165, 0.8),
+          backgroundPadding:
+            options.backgroundPadding || new Cesium.Cartesian2(7, 5), // * 水平和垂直背景填充
+          fillColor: options.fillColor || Cesium.Color.WHITE,
+          outlineColor: options.outlineColor || Cesium.Color.BLACK,
+          outlineWidth: options.outlineWidth || 1
+        }
+      };
+      break;
+    case "plane":
+      entity = {
+        name: options.name || "示例",
+        position: Cesium.Cartesian3.fromDegrees(
+          options.position[0],
+          options.position[1],
+          options.position[2] || 0
+        ),
+        plane: {
+          show: options.show || true,
+          plane:
+            options.plane || new Cesium.Plane(Cesium.Cartesian3.UNIT_Y, 0.0), // * Cesium.Cartesian3.UNIT_X,Cesium.Cartesian3.UNIT_Y,Cesium.Cartesian3.UNIT_Z
+          dimensions: new Cesium.Cartesian2(
+            options.dimensions[0],
+            options.dimensions[1]
+          ), // * 指定平面宽高
+          fill: options.fill || true,
+          material: options.material || Cesium.Color.WHITE,
+          outline: options.outline || false,
+          outlineColor: options.outlineColor || Cesium.Color.BLACK,
+          outlineWidth: options.outlineWidth || 1.0
+        }
+      };
+      break;
+    case "polylineVolume":
+      entity = {
+        name: options.name || "示例",
+        polylineVolume: {
+          show: options.show || true,
+          positions: Cesium.Cartesian3.fromDegreesArrayHeights(
+            options.positions
+          ),
+          shape: options.shape || [
+            new Cesium.Cartesian2(-50000, -50000),
+            new Cesium.Cartesian2(50000, -50000),
+            new Cesium.Cartesian2(50000, 50000),
+            new Cesium.Cartesian2(-50000, 50000)
+          ], // * 指定面形状
+          cornerType: options.cornerType || Cesium.CornerType.ROUNDED, // * 指定拐角样式
+          fill: options.fill || true,
+          material: options.material || Cesium.Color.WHITE,
+          outline: options.outline || false,
+          outlineColor: options.outlineColor || Cesium.Color.BLACK,
+          outlineWidth: options.outlineWidth || 1.0
+        }
+      };
+      break;
+    case "rectangle":
+      entity = {
+        name: options.name || "示例",
+        rectangle: {
+          show: options.show || true,
+          coordinates: Cesium.Rectangle.fromDegrees(
+            options.coordinates[0],
+            options.coordinates[1],
+            options.coordinates[2],
+            options.coordinates[3]
+          ),
+          height: options.height || 0,
+          extrudedHeight: options.extrudedHeight,
+          rotation: options.rotation || 0,
+          stRotation: options.stRotation || 0,
+          fill: options.fill || true,
+          material: options.material || Cesium.Color.WHITE,
+          outline: options.outline || false,
+          outlineColor: options.outlineColor || Cesium.Color.BLACK,
+          outlineWidth: options.outlineWidth || 1.0,
+          classificationType:
+            options.classificationType || Cesium.ClassificationType.BOTH,
+          zIndex: options.zIndex || 0
+        }
+      };
+      break;
+    case "wall":
+      entity = {
+        name: options.name || "示例",
+        wall: {
+          show: options.show || true,
+          positions: Cesium.Cartesian3.fromDegreesArrayHeights(
+            options.positions
+          ),
+          maximumHeights: options.maximumHeights,
+          minimumHeights: options.minimumHeights,
+          fill: options.fill || true,
+          material: options.material || Cesium.Color.WHITE,
+          outline: options.outline || false,
+          outlineColor: options.outlineColor || Cesium.Color.BLACK,
+          outlineWidth: options.outlineWidth || 1.0
         }
       };
       break;

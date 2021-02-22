@@ -7,7 +7,7 @@ import createImageryProvider from "@/mapconfig/addlayer/createImageryProvider";
 import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 import Camera from "@/mapconfig/camera/camera";
 // import createDataSource from "@/mapconfig/dataSource/dataSource";
-import createEntity from "@/mapconfig/entity/entity";
+// import createEntity from "@/mapconfig/entity/entity";
 export default {
   name: "Home",
   mounted() {
@@ -33,8 +33,19 @@ export default {
       shadows: false, // * 阴影效果
       projectionPicker: false, // * 透视投影和正投影之间切换
       requestRenderMode: true, // * 在指定情况下进行渲染,提高性能
-      imageryProvider: createImageryProvider("osm"),
-      terrainProvider: addTerrain("ionTerrain")
+      imageryProvider: createImageryProvider(
+        "wmts",
+        "http://t0.tianditu.gov.cn/img_w/wmts?tk=c0b9cb30599dd11c468c8aaa2fc1863a",
+        {
+          layer: "img",
+          format: "image/jpeg",
+          tileMatrixSetID: "w"
+        }
+      ),
+      terrainProvider: addTerrain(
+        "cesiumTerrain",
+        "http://localhost:8091/jiuzhaigou"
+      )
     });
     // let layers = window.viewer.scene.imageryLayers;
     // let imaPro = createImageryProvider(
@@ -444,33 +455,53 @@ export default {
 
       // * 创建wall
       {
-        let entity = createEntity("wall", {
-          positions: [
-            -107.0,
-            43.0,
-            100000.0,
-            -97.0,
-            43.0,
-            100000.0,
-            -97.0,
-            40.0,
-            100000.0,
-            -107.0,
-            40.0,
-            100000.0,
-            -107.0,
-            43.0,
-            100000.0
-          ],
-          maximumHeights: [100000, 200000, 100000, 200000, 100000],
-          minimumHeights: [0, 100000, 0, 100000, 0],
-          fill: false,
-          material: this.Cesium.Color.BLUE.withAlpha(0.5),
-          outline: true,
-          outlineWidth: 2.0
-        });
-        let enti = window.viewer.entities.add(entity);
-        window.viewer.zoomTo(enti);
+        // let entity = createEntity("wall", {
+        //   positions: [
+        //     -107.0,
+        //     43.0,
+        //     100000.0,
+        //     -97.0,
+        //     43.0,
+        //     100000.0,
+        //     -97.0,
+        //     40.0,
+        //     100000.0,
+        //     -107.0,
+        //     40.0,
+        //     100000.0,
+        //     -107.0,
+        //     43.0,
+        //     100000.0
+        //   ],
+        //   maximumHeights: [100000, 200000, 100000, 200000, 100000],
+        //   minimumHeights: [0, 100000, 0, 100000, 0],
+        //   fill: false,
+        //   material: this.Cesium.Color.BLUE.withAlpha(0.5),
+        //   outline: true,
+        //   outlineWidth: 2.0
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建model
+      {
+        // let entity = createEntity("model", {
+        //   positions: [-107.0, 43.0, 0],
+        //   uri:
+        //     "http://localhost:8091/SampleData/models/CesiumAir/Cesium_Air.glb"
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
+      }
+
+      // * 创建tileset
+      {
+        // let entity = createEntity("tileset", {
+        //   uri: "http://localhost:8091/cz/tileset.json"
+        // });
+        // let enti = window.viewer.entities.add(entity);
+        // window.viewer.zoomTo(enti);
       }
     }
   }

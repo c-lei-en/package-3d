@@ -317,6 +317,61 @@ function entity(type, options = {}) {
         }
       };
       break;
+    case "model":
+      entity = {
+        name: options.name || "示例",
+        position: Cesium.Cartesian3.fromDegrees(
+          options.positions[0],
+          options.positions[1],
+          options.positions[2]
+        ),
+        orientation:
+          options.orientation ||
+          Cesium.Transforms.headingPitchRollQuaternion(
+            Cesium.Cartesian3.fromDegrees(
+              options.positions[0],
+              options.positions[1],
+              options.positions[2]
+            ),
+            new Cesium.HeadingPitchRoll(Cesium.Math.toRadians(135), 0, 0)
+          ),
+        model: {
+          show: options.show || true,
+          uri: options.uri,
+          scale: options.scale || 1.0,
+          minimumPixelSize: options.minimumPixelSize || 128, // * 模型的最小最小像素大小，而不考虑缩放
+          maximumScale: options.maximumScale || 20000, // * 模型的最大比例尺大小。 minimumPixelSize的上限
+          incrementallyLoadTextures: options.incrementallyLoadTextures || true, // * 确定在加载模型后纹理是否可以继续流入
+          runAnimations: options.runAnimations || true, // * 是否应启动模型中指定的glTF动画
+          clampAnimations: options.clampAnimations || true, // * glTF动画是否应在没有关键帧的持续时间内保持最后一个姿势
+          shadows: options.shadows || Cesium.ShadowMode.DISABLED,
+          heightReference:
+            options.heightReference || Cesium.HeightReference.NONE,
+          silhouetteColor: options.silhouetteColor || Cesium.Color.RED, // * 轮廓的颜色
+          silhouetteSize: options.silhouetteSize || 0.0, // * 轮廓的宽度
+          color: options.color || Cesium.Color.WHITE, // * 模型的颜色
+
+          // * 目标颜色和图元的源颜色之间混合的不同模式
+          // * HIGHLIGHT 将源颜色乘以目标颜色;REPLACE 将源颜色替换为目标颜色;MIX 将源颜色和目标颜色混合在一起
+          colorBlendMode:
+            options.colorBlendMode || Cesium.ColorBlendMode.HIGHLIGHT,
+          // * 用于指定 colorBlendMode 为 MIX 时的颜色强度。值0.0会产生模型的着色，而值1.0会导致纯色，介于两者之间的任何值都会导致两者混合
+          colorBlendAmount: options.colorBlendAmount || 0.5,
+          imageBasedLightingFactor:
+            options.imageBasedLightingFactor || new Cesium.Cartesian2(1.0, 1.0), // * 指定基于漫反射和镜面反射的图像照明的贡献
+          lightColor: options.lightColor || undefined // * 为模型着色时指定浅色的属性。如果 undefined ，则使用场景的浅色。
+        }
+      };
+      break;
+    case "tileset":
+      entity = {
+        name: options.name || "示例",
+        tileset: {
+          show: options.show || true,
+          uri: options.uri
+        }
+      };
+      break;
     default:
       break;
   }

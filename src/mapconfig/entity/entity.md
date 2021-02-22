@@ -308,3 +308,29 @@ window.viewer.zoomTo(enti);
 ```
 
 ![wall](./displayEntity/wall.JPG)
+
+## model
+
+```js
+let entity = createEntity("model", {
+  positions: [-107.0, 43.0, 0],
+  uri:
+    "http://localhost:8091/SampleData/models/CesiumAir/Cesium_Air.glb"
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![model](./displayEntity/model.JPG)
+
+## tileset
+
+```js
+let entity = createEntity("tileset", {
+  uri: "http://localhost:8091/cz/tileset.json"
+});
+let enti = window.viewer.entities.add(entity);
+window.viewer.zoomTo(enti);
+```
+
+![tileset](./displayEntity/tileset.JPG)

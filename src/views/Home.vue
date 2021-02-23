@@ -8,6 +8,7 @@ import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 import Camera from "@/mapconfig/camera/camera";
 // import createDataSource from "@/mapconfig/dataSource/dataSource";
 // import createEntity from "@/mapconfig/entity/entity";
+import createPrimitve from "@/mapconfig/primitive/primitive";
 export default {
   name: "Home",
   mounted() {
@@ -503,6 +504,164 @@ export default {
         // let enti = window.viewer.entities.add(entity);
         // window.viewer.zoomTo(enti);
       }
+    }
+
+    // ? primitive
+    {
+      // * box
+      // let geometry = createPrimitve("box", {
+      //   dimensions: [400000.0, 300000.0, 500000.0],
+      //   modelMatrix: [-105.0, 45.0]
+      // });
+
+      // * boxOutline
+      // let geometry = createPrimitve("boxOutline", {
+      //   dimensions: [400000.0, 300000.0, 500000.0],
+      //   modelMatrix: [-105.0, 45.0]
+      // });
+
+      // * circle
+      // let geometry = createPrimitve("circle", {
+      //   center: [-75.59777, 40.03883],
+      //   radius: 100000.0
+      // });
+
+      // * circleOutline
+      // let geometry = createPrimitve("circleOutline", {
+      //   center: [-75.59777, 40.03883],
+      //   radius: 100000.0
+      // });
+
+      // * coplanarPolygon
+      // let geometry = createPrimitve("coplanarPolygon", {
+      //   polygonHierarchy: [
+      //     -90.0,
+      //     30.0,
+      //     0.0,
+      //     -90.0,
+      //     30.0,
+      //     300000.0,
+      //     -80.0,
+      //     30.0,
+      //     300000.0,
+      //     -80.0,
+      //     30.0,
+      //     0.0
+      //   ]
+      // });
+
+      // * coplanarPolygonOutline
+      // let geometry = createPrimitve("coplanarPolygonOutline", {
+      //   polygonHierarchy: [
+      //     -90.0,
+      //     30.0,
+      //     0.0,
+      //     -90.0,
+      //     30.0,
+      //     300000.0,
+      //     -80.0,
+      //     30.0,
+      //     300000.0,
+      //     -80.0,
+      //     30.0,
+      //     0.0
+      //   ]
+      // });
+
+      // * corridor
+      // let geometry = createPrimitve("corridor", {
+      //   positions: [-72.0, 40.0, -70.0, 35.0, -75.59777, 40.03883],
+      //   width: 100000,
+      //   extrudedHeight: 100000
+      // });
+
+      // * corridorOutline
+      // let geometry = createPrimitve("corridorOutline", {
+      //   positions: [-72.0, 40.0, -70.0, 35.0, -75.59777, 40.03883],
+      //   width: 100000,
+      //   extrudedHeight: 100000
+      // });
+
+      // * cylinder
+      // let geometry = createPrimitve("cylinder", {
+      //   length: 200000,
+      //   topRadius: 80000,
+      //   bottomRadius: 200000,
+      //   modelMatrix: [-105.0, 45.0]
+      // });
+
+      // * cylinderOutline
+      // let geometry = createPrimitve("cylinderOutline", {
+      //   length: 200000,
+      //   topRadius: 80000,
+      //   bottomRadius: 200000,
+      //   modelMatrix: [-105.0, 45.0]
+      // });
+
+      // * ellipse
+      // let geometry = createPrimitve("ellipse", {
+      //   center: [-75.59777, 40.03883],
+      //   semiMajorAxis: 500000.0,
+      //   semiMinorAxis: 300000.0,
+      //   extrudedHeight: 100000
+      // });
+
+      // * ellipseOutline
+      // let geometry = createPrimitve("ellipseOutline", {
+      //   center: [-75.59777, 40.03883],
+      //   semiMajorAxis: 500000.0,
+      //   semiMinorAxis: 300000.0,
+      //   extrudedHeight: 100000
+      // });
+
+      // * ellipsoid
+      // let geometry = createPrimitve("ellipsoid", {
+      //   radii: [1000000.0, 500000.0, 500000.0],
+      //   modelMatrix: [-105.0, 45.0]
+      // });
+
+      // * ellipsoidOutline
+      // let geometry = createPrimitve("ellipsoidOutline", {
+      //   radii: [1000000.0, 500000.0, 500000.0],
+      //   modelMatrix: [-105.0, 45.0]
+      // });
+
+      // * frustum
+      // let geometry = createPrimitve("frustum", {
+      //   origin: [-105.0, 45.0]
+      // });
+
+      // * frustumOutline
+      let geometry = createPrimitve("frustumOutline", {
+        origin: [-105.0, 45.0]
+      });
+
+      let primitive = new this.Cesium.Primitive({
+        geometryInstances: geometry,
+        // appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+        //   material: this.Cesium.Material.fromType("Stripe")
+        // }),
+        appearance: new this.Cesium.PerInstanceColorAppearance({
+          flat: true,
+          translucent: false,
+          renderState: {
+            lineWidth: Math.min(
+              6.0,
+              window.viewer.scene.maximumAliasedLineWidth
+            )
+          }
+        }),
+        show: true,
+        modelMatrix: this.Cesium.Matrix4.IDENTITY,
+        vertexCacheOptimize: false, // * 当为真时，几何顶点会被优化为前顶点着色器和后顶点着色器缓存
+        interleave: false, // * 为true时顶点属性交错,改善了渲染性能但是增加了加载时间
+        compressVertices: true, // *为true时压缩顶点,节省内存
+        releaseGeometryInstances: true, // * 为true时primitive不会保留对GeometryInstance的引用以节省内存
+        allowPicking: true, // * 为true时只能通过场景pick来拾取,为false则表示保存GPU内存
+        asynchronous: false, // * 为true表示异步创建
+        debugShowBoundingVolume: false // * 为true表示展示primitive的边界球
+      });
+      window.viewer.scene.primitives.add(primitive);
     }
   }
 };

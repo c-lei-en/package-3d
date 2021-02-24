@@ -34,7 +34,7 @@ function entity(type, options = {}) {
           pixelSize: options.pixelSize || 1, // * 大小
           heightReference:
             options.heightReference || Cesium.HeightReference.NONE, // * 高度相对于什么
-          color: options.color || Cesium.Color.WHITE, // * 这一项与height的差为物体本身的高度
+          color: options.color || Cesium.Color.WHITE,
           outlineColor: options.outlineColor || Cesium.Color.BLACK, // * 边框颜色
           outlineWidth: options.outlineWidth || 0 // *边框宽度
         }

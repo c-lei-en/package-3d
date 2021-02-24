@@ -349,3 +349,235 @@ appearance: new this.Cesium.PerInstanceColorAppearance({
 ```
 
 ![frustumOutline](./displayPrimitive/frustumOutline.JPG)
+
+## plane
+
+```js
+let geometry = createPrimitve("plane", {
+  modelMatrix: [-105.0, 45.0],
+  long: 100000.0,
+  width: 200000.0
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![plane](./displayPrimitive/plane.JPG)
+
+## planeOutline
+
+```js
+let geometry = createPrimitve("planeOutline", {
+  modelMatrix: [-105.0, 45.0],
+  long: 100000.0,
+  width: 200000.0
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![planeOutline](./displayPrimitive/planeOutline.JPG)
+
+## polygon
+
+```js
+let geometry = createPrimitve("polygon", {
+  polygonHierarchy: [
+    -72.0,
+    40.0,
+    -70.0,
+    35.0,
+    -75.0,
+    30.0,
+    -70.0,
+    30.0,
+    -68.0,
+    40.0
+  ],
+  extrudedHeight: 1000000.0
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![polygon](./displayPrimitive/polygon.JPG)
+
+## polygonOutline
+
+```js
+let geometry = createPrimitve("polygonOutline", {
+  polygonHierarchy: [
+    -72.0,
+    40.0,
+    -70.0,
+    35.0,
+    -75.0,
+    30.0,
+    -70.0,
+    30.0,
+    -68.0,
+    40.0
+  ],
+  extrudedHeight: 1000000.0
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![polygonOutline](./displayPrimitive/polygonOutline.JPG)
+
+## polyline
+
+```js
+let geometry = createPrimitve("polyline", {
+  positions: [-80.0, 39.0, -74.0, 42.0],
+  width: 10.0
+});
+
+appearance: new this.Cesium.PolylineColorAppearance({
+  translucent: false
+})
+```
+
+![polyline](./displayPrimitive/polyline.JPG)
+
+## simplePolyline
+
+```js
+let geometry = createPrimitve("simplePolyline", {
+  positions: [-80.0, 39.0, -74.0, 42.0, -72.0, 40.0]
+});
+
+appearance: new this.Cesium.PerInstanceColorAppearance({
+  flat: true,
+  translucent: false,
+  renderState: {
+    lineWidth: Math.min(
+      6.0,
+      window.viewer.scene.maximumAliasedLineWidth
+    )
+  }
+})
+```
+
+![polyline](./displayPrimitive/polyline.JPG)
+
+## rectangle
+
+```js
+let geometry = createPrimitve("rectangle", {
+  rectangle: [-80.0, 39.0, -74.0, 42.0],
+  extrudedHeight: 1000000.0
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![rectangle](./displayPrimitive/rectangle.JPG)
+
+## rectangleOutline
+
+```js
+let geometry = createPrimitve("rectangleOutline", {
+  rectangle: [-80.0, 39.0, -74.0, 42.0],
+  extrudedHeight: 1000000.0
+});
+
+appearance: new this.Cesium.PerInstanceColorAppearance({
+  flat: true,
+  translucent: false,
+  renderState: {
+    lineWidth: Math.min(
+      6.0,
+      window.viewer.scene.maximumAliasedLineWidth
+    )
+  }
+})
+```
+
+![rectangleOutline](./displayPrimitive/rectangleOutline.JPG)
+
+## sphere
+
+```js
+let geometry = createPrimitve("sphere", {
+  radius: 1.0,
+  modelMatrix: [-80.0, 39.0]
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![sphere](./displayPrimitive/sphere.JPG)
+
+## sphereOutline
+
+```js
+let geometry = createPrimitve("sphereOutline", {
+  radius: 1.0
+});
+
+appearance: new this.Cesium.PerInstanceColorAppearance({
+  flat: true,
+  translucent: false,
+  renderState: {
+    lineWidth: Math.min(
+      6.0,
+      window.viewer.scene.maximumAliasedLineWidth
+    )
+  }
+})
+```
+
+![sphereOutline](./displayPrimitive/sphereOutline.JPG)
+
+## wall
+
+```js
+let geometry = createPrimitve("wall", {
+  positions: [-95.0, 50.0, -85.0, 50.0, -75.0, 50.0],
+  maximumHeights: [500000, 1000000, 500000],
+  minimumHeights: [0, 500000, 0]
+});
+
+appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+  material: this.Cesium.Material.fromType("Stripe")
+})
+```
+
+![wall](./displayPrimitive/wall.JPG)
+
+## wallOutline
+
+```js
+let geometry = createPrimitve("wallOutline", {
+  positions: [-95.0, 50.0, -85.0, 50.0, -75.0, 50.0],
+  maximumHeights: [500000, 1000000, 500000],
+  minimumHeights: [0, 500000, 0]
+});
+
+appearance: new this.Cesium.PerInstanceColorAppearance({
+  flat: true,
+  translucent: false,
+  renderState: {
+    lineWidth: Math.min(
+      6.0,
+      window.viewer.scene.maximumAliasedLineWidth
+    )
+  }
+})
+```
+
+![wallOutline](./displayPrimitive/wallOutline.JPG)

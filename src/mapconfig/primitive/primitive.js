@@ -404,27 +404,23 @@ function primitive(type, options = {}) {
       });
       break;
     case "plane":
-      geometry = Cesium.EllipsoidOutlineGeometry.createGeometry(
-        new Cesium.EllipsoidOutlineGeometry({
-          vertexFormat:
-            options.vertexFormat || Cesium.VertexFormat.POSITION_ONLY,
-          radii: new Cesium.Cartesian3(
-            options.radii[0],
-            options.radii[1],
-            options.radii[2]
-          )
+      geometry = Cesium.PlaneGeometry.createGeometry(
+        new Cesium.PlaneGeometry({
+          vertexFormat: options.vertexFormat || Cesium.VertexFormat.DEFAULT
         })
       );
       instance = new Cesium.GeometryInstance({
         geometry: geometry,
-        modelMatrix: Cesium.Matrix4.multiplyByTranslation(
+        modelMatrix: Cesium.Matrix4.multiply(
           Cesium.Transforms.eastNorthUpToFixedFrame(
             Cesium.Cartesian3.fromDegrees(
               options.modelMatrix[0],
               options.modelMatrix[1]
             )
           ),
-          new Cesium.Cartesian3(0.0, 0.0, 0),
+          Cesium.Matrix4.fromScale(
+            new Cesium.Cartesian3(options.long, options.width, 1.0)
+          ),
           new Cesium.Matrix4()
         ),
         attributes: {
@@ -433,6 +429,253 @@ function primitive(type, options = {}) {
           )
         },
         id: options.id || "plane"
+      });
+      break;
+    case "planeOutline":
+      geometry = Cesium.PlaneOutlineGeometry.createGeometry(
+        new Cesium.PlaneOutlineGeometry({
+          vertexFormat: options.vertexFormat || Cesium.VertexFormat.DEFAULT
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        modelMatrix: Cesium.Matrix4.multiply(
+          Cesium.Transforms.eastNorthUpToFixedFrame(
+            Cesium.Cartesian3.fromDegrees(
+              options.modelMatrix[0],
+              options.modelMatrix[1]
+            )
+          ),
+          Cesium.Matrix4.fromScale(
+            new Cesium.Cartesian3(options.long, options.width, 1.0)
+          ),
+          new Cesium.Matrix4()
+        ),
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "planeOutline"
+      });
+      break;
+    case "polygon":
+      geometry = Cesium.PolygonGeometry.createGeometry(
+        new Cesium.PolygonGeometry({
+          polygonHierarchy: new Cesium.PolygonHierarchy(
+            Cesium.Cartesian3.fromDegreesArray(options.polygonHierarchy)
+          ),
+          height: options.height || 0.0,
+          extrudedHeight: options.extrudedHeight
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "polygon"
+      });
+      break;
+    case "polygonOutline":
+      geometry = Cesium.PolygonOutlineGeometry.createGeometry(
+        new Cesium.PolygonOutlineGeometry({
+          polygonHierarchy: new Cesium.PolygonHierarchy(
+            Cesium.Cartesian3.fromDegreesArray(options.polygonHierarchy)
+          ),
+          height: options.height || 0.0,
+          extrudedHeight: options.extrudedHeight
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "polygonOutline"
+      });
+      break;
+    case "polyline":
+      geometry = Cesium.PolylineGeometry.createGeometry(
+        new Cesium.PolylineGeometry({
+          positions: Cesium.Cartesian3.fromDegreesArray(options.positions),
+          width: options.width || 1.0,
+          vertexFormat: Cesium.PolylineColorAppearance.VERTEX_FORMAT
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "polyline"
+      });
+      break;
+    case "simplePolyline":
+      geometry = Cesium.SimplePolylineGeometry.createGeometry(
+        new Cesium.SimplePolylineGeometry({
+          positions: Cesium.Cartesian3.fromDegreesArray(options.positions)
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "simplePolyline"
+      });
+      break;
+    case "rectangle":
+      geometry = Cesium.RectangleGeometry.createGeometry(
+        new Cesium.RectangleGeometry({
+          rectangle: Cesium.Rectangle.fromDegrees(
+            options.rectangle[0],
+            options.rectangle[1],
+            options.rectangle[2],
+            options.rectangle[3]
+          ),
+          height: options.height || 0,
+          extrudedHeight: options.extrudedHeight
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "rectangle"
+      });
+      break;
+    case "rectangleOutline":
+      geometry = Cesium.RectangleOutlineGeometry.createGeometry(
+        new Cesium.RectangleOutlineGeometry({
+          rectangle: Cesium.Rectangle.fromDegrees(
+            options.rectangle[0],
+            options.rectangle[1],
+            options.rectangle[2],
+            options.rectangle[3]
+          ),
+          height: options.height || 0,
+          extrudedHeight: options.extrudedHeight
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "rectangleOutline"
+      });
+      break;
+    case "sphere":
+      geometry = Cesium.SphereGeometry.createGeometry(
+        new Cesium.SphereGeometry({
+          radius: options.radius,
+          vertexFormat:
+            options.vertexFormat ||
+            Cesium.PerInstanceColorAppearance.VERTEX_FORMAT
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        modelMatrix: Cesium.Matrix4.multiplyByUniformScale(
+          Cesium.Matrix4.multiplyByTranslation(
+            Cesium.Transforms.eastNorthUpToFixedFrame(
+              Cesium.Cartesian3.fromDegrees(
+                options.modelMatrix[0],
+                options.modelMatrix[1]
+              )
+            ),
+            new Cesium.Cartesian3(0.0, 0.0, 100.0),
+            new Cesium.Matrix4()
+          ),
+          90000.0,
+          new Cesium.Matrix4()
+        ),
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "sphere"
+      });
+      break;
+    case "sphereOutline":
+      geometry = Cesium.SphereOutlineGeometry.createGeometry(
+        new Cesium.SphereOutlineGeometry({
+          radius: options.radius
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        modelMatrix: Cesium.Matrix4.multiplyByUniformScale(
+          Cesium.Matrix4.multiplyByTranslation(
+            Cesium.Transforms.eastNorthUpToFixedFrame(
+              Cesium.Cartesian3.fromDegrees(
+                options.modelMatrix[0],
+                options.modelMatrix[1]
+              )
+            ),
+            new Cesium.Cartesian3(0.0, 0.0, 100.0),
+            new Cesium.Matrix4()
+          ),
+          90000.0,
+          new Cesium.Matrix4()
+        ),
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "sphereOutline"
+      });
+      break;
+    case "wall":
+      geometry = Cesium.WallGeometry.createGeometry(
+        new Cesium.WallGeometry({
+          positions: Cesium.Cartesian3.fromDegreesArray(options.positions),
+          maximumHeights: options.maximumHeights,
+          minimumHeights: options.minimumHeights
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "wall"
+      });
+      break;
+    case "wallOutline":
+      geometry = Cesium.WallOutlineGeometry.createGeometry(
+        new Cesium.WallOutlineGeometry({
+          positions: Cesium.Cartesian3.fromDegreesArray(options.positions),
+          maximumHeights: options.maximumHeights,
+          minimumHeights: options.minimumHeights
+        })
+      );
+      instance = new Cesium.GeometryInstance({
+        geometry: geometry,
+        attributes: {
+          color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+            Cesium.Color.YELLOW
+          )
+        },
+        id: options.id || "wallOutline"
       });
       break;
     default:

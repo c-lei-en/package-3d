@@ -8,13 +8,14 @@ import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 import Camera from "@/mapconfig/camera/camera";
 // import createDataSource from "@/mapconfig/dataSource/dataSource";
 // import createEntity from "@/mapconfig/entity/entity";
-import createPrimitve from "@/mapconfig/primitive/primitive";
+// import createPrimitve from "@/mapconfig/primitive/primitive";
+import createParticleSystem from "@/mapconfig/particleSystem/particleSystem";
 export default {
   name: "Home",
   mounted() {
     window.viewer = new this.Cesium.Viewer("cesiumContainer", {
-      animation: false, // * 左下角圆盘 速度控制器
-      shouldAnimate: false, // * 当动画控件出现，用来控制是否通过旋转控件，旋转场景
+      animation: true, // * 左下角圆盘 速度控制器
+      shouldAnimate: true, // * 当动画控件出现，用来控制是否通过旋转控件，旋转场景
       baseLayerPicker: false, // * 右上角图层选择器
       fullscreenButton: false, // * 右下角全屏按钮
       vrButton: false, // * 右下角vr按钮
@@ -513,25 +514,21 @@ export default {
       //   dimensions: [400000.0, 300000.0, 500000.0],
       //   modelMatrix: [-105.0, 45.0]
       // });
-
       // * boxOutline
       // let geometry = createPrimitve("boxOutline", {
       //   dimensions: [400000.0, 300000.0, 500000.0],
       //   modelMatrix: [-105.0, 45.0]
       // });
-
       // * circle
       // let geometry = createPrimitve("circle", {
       //   center: [-75.59777, 40.03883],
       //   radius: 100000.0
       // });
-
       // * circleOutline
       // let geometry = createPrimitve("circleOutline", {
       //   center: [-75.59777, 40.03883],
       //   radius: 100000.0
       // });
-
       // * coplanarPolygon
       // let geometry = createPrimitve("coplanarPolygon", {
       //   polygonHierarchy: [
@@ -549,7 +546,6 @@ export default {
       //     0.0
       //   ]
       // });
-
       // * coplanarPolygonOutline
       // let geometry = createPrimitve("coplanarPolygonOutline", {
       //   polygonHierarchy: [
@@ -567,21 +563,18 @@ export default {
       //     0.0
       //   ]
       // });
-
       // * corridor
       // let geometry = createPrimitve("corridor", {
       //   positions: [-72.0, 40.0, -70.0, 35.0, -75.59777, 40.03883],
       //   width: 100000,
       //   extrudedHeight: 100000
       // });
-
       // * corridorOutline
       // let geometry = createPrimitve("corridorOutline", {
       //   positions: [-72.0, 40.0, -70.0, 35.0, -75.59777, 40.03883],
       //   width: 100000,
       //   extrudedHeight: 100000
       // });
-
       // * cylinder
       // let geometry = createPrimitve("cylinder", {
       //   length: 200000,
@@ -589,7 +582,6 @@ export default {
       //   bottomRadius: 200000,
       //   modelMatrix: [-105.0, 45.0]
       // });
-
       // * cylinderOutline
       // let geometry = createPrimitve("cylinderOutline", {
       //   length: 200000,
@@ -597,7 +589,6 @@ export default {
       //   bottomRadius: 200000,
       //   modelMatrix: [-105.0, 45.0]
       // });
-
       // * ellipse
       // let geometry = createPrimitve("ellipse", {
       //   center: [-75.59777, 40.03883],
@@ -605,7 +596,6 @@ export default {
       //   semiMinorAxis: 300000.0,
       //   extrudedHeight: 100000
       // });
-
       // * ellipseOutline
       // let geometry = createPrimitve("ellipseOutline", {
       //   center: [-75.59777, 40.03883],
@@ -613,43 +603,36 @@ export default {
       //   semiMinorAxis: 300000.0,
       //   extrudedHeight: 100000
       // });
-
       // * ellipsoid
       // let geometry = createPrimitve("ellipsoid", {
       //   radii: [1000000.0, 500000.0, 500000.0],
       //   modelMatrix: [-105.0, 45.0]
       // });
-
       // * ellipsoidOutline
       // let geometry = createPrimitve("ellipsoidOutline", {
       //   radii: [1000000.0, 500000.0, 500000.0],
       //   modelMatrix: [-105.0, 45.0]
       // });
-
       // * frustum
       // let geometry = createPrimitve("frustum", {
       //   origin: [-105.0, 45.0]
       // });
-
       // * frustumOutline
       // let geometry = createPrimitve("frustumOutline", {
       //   origin: [-105.0, 45.0]
       // });
-
       // * plane
       // let geometry = createPrimitve("plane", {
       //   modelMatrix: [-105.0, 45.0],
       //   long: 100000.0,
       //   width: 200000.0
       // });
-
       // * planeOutline
       // let geometry = createPrimitve("planeOutline", {
       //   modelMatrix: [-105.0, 45.0],
       //   long: 100000.0,
       //   width: 200000.0
       // });
-
       // * polygon
       // let geometry = createPrimitve("polygon", {
       //   polygonHierarchy: [
@@ -666,7 +649,6 @@ export default {
       //   ],
       //   extrudedHeight: 1000000.0
       // });
-
       // * polygonOutline
       // let geometry = createPrimitve("polygonOutline", {
       //   polygonHierarchy: [
@@ -683,85 +665,119 @@ export default {
       //   ],
       //   extrudedHeight: 1000000.0
       // });
-
       // * polyline
       // let geometry = createPrimitve("polyline", {
       //   positions: [-80.0, 39.0, -74.0, 42.0],
       //   width: 6.0
       // });
-
       // * simplePolyline
       // let geometry = createPrimitve("simplePolyline", {
       //   positions: [-80.0, 39.0, -74.0, 42.0, -72.0, 40.0]
       // });
-
       // * rectangle
       // let geometry = createPrimitve("rectangle", {
       //   rectangle: [-80.0, 39.0, -74.0, 42.0],
       //   extrudedHeight: 1000000.0
       // });
-
       // * rectangleOutline
       // let geometry = createPrimitve("rectangleOutline", {
       //   rectangle: [-80.0, 39.0, -74.0, 42.0],
       //   extrudedHeight: 1000000.0
       // });
-
       // * sphere
       // let geometry = createPrimitve("sphere", {
       //   radius: 1.0,
       //   modelMatrix: [-80.0, 39.0]
       // });
-
       // * sphereOutline
       // let geometry = createPrimitve("sphereOutline", {
       //   radius: 1.0,
       //   modelMatrix: [-80.0, 39.0]
       // });
-
       // * wall
       // let geometry = createPrimitve("wall", {
       //   positions: [-95.0, 50.0, -85.0, 50.0, -75.0, 50.0],
       //   maximumHeights: [500000, 1000000, 500000],
       //   minimumHeights: [0, 500000, 0]
       // });
-
       // * wallOutline
-      let geometry = createPrimitve("wallOutline", {
-        positions: [-95.0, 50.0, -85.0, 50.0, -75.0, 50.0],
-        maximumHeights: [500000, 1000000, 500000],
-        minimumHeights: [0, 500000, 0]
-      });
+      // let geometry = createPrimitve("wallOutline", {
+      //   positions: [-95.0, 50.0, -85.0, 50.0, -75.0, 50.0],
+      //   maximumHeights: [500000, 1000000, 500000],
+      //   minimumHeights: [0, 500000, 0]
+      // });
+      // * 创建primitive
+      // let primitive = new this.Cesium.Primitive({
+      //   geometryInstances: geometry,
+      //   // appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+      //   //   material: this.Cesium.Material.fromType("Stripe")
+      //   // }),
+      //   appearance: new this.Cesium.PerInstanceColorAppearance({
+      //     flat: true,
+      //     translucent: false,
+      //     renderState: {
+      //       lineWidth: Math.min(
+      //         6.0,
+      //         window.viewer.scene.maximumAliasedLineWidth
+      //       )
+      //     }
+      //   }),
+      //   // appearance: new this.Cesium.PolylineColorAppearance({
+      //   //   translucent: false
+      //   // }),
+      //   show: true,
+      //   modelMatrix: this.Cesium.Matrix4.IDENTITY,
+      //   vertexCacheOptimize: false, // * 当为真时，几何顶点会被优化为前顶点着色器和后顶点着色器缓存
+      //   interleave: false, // * 为true时顶点属性交错,改善了渲染性能但是增加了加载时间
+      //   compressVertices: true, // *为true时压缩顶点,节省内存
+      //   releaseGeometryInstances: true, // * 为true时primitive不会保留对GeometryInstance的引用以节省内存
+      //   allowPicking: true, // * 为true时只能通过场景pick来拾取,为false则表示保存GPU内存
+      //   asynchronous: false, // * 为true表示异步创建
+      //   debugShowBoundingVolume: false // * 为true表示展示primitive的边界球
+      // });
+      // window.viewer.scene.primitives.add(primitive);
+    }
 
-      let primitive = new this.Cesium.Primitive({
-        geometryInstances: geometry,
-        // appearance: new this.Cesium.EllipsoidSurfaceAppearance({
-        //   material: this.Cesium.Material.fromType("Stripe")
-        // }),
-        appearance: new this.Cesium.PerInstanceColorAppearance({
-          flat: true,
-          translucent: false,
-          renderState: {
-            lineWidth: Math.min(
-              6.0,
-              window.viewer.scene.maximumAliasedLineWidth
-            )
-          }
-        }),
-        // appearance: new this.Cesium.PolylineColorAppearance({
-        //   translucent: false
-        // }),
-        show: true,
-        modelMatrix: this.Cesium.Matrix4.IDENTITY,
-        vertexCacheOptimize: false, // * 当为真时，几何顶点会被优化为前顶点着色器和后顶点着色器缓存
-        interleave: false, // * 为true时顶点属性交错,改善了渲染性能但是增加了加载时间
-        compressVertices: true, // *为true时压缩顶点,节省内存
-        releaseGeometryInstances: true, // * 为true时primitive不会保留对GeometryInstance的引用以节省内存
-        allowPicking: true, // * 为true时只能通过场景pick来拾取,为false则表示保存GPU内存
-        asynchronous: false, // * 为true表示异步创建
-        debugShowBoundingVolume: false // * 为true表示展示primitive的边界球
+    // ? ParticleSystem
+
+    var emitterModelMatrix = new this.Cesium.Matrix4();
+    var translation = new this.Cesium.Cartesian3();
+    var rotation = new this.Cesium.Quaternion();
+    var hpr = new this.Cesium.HeadingPitchRoll();
+    var trs = new this.Cesium.TranslationRotationScale();
+    let computeEmitterModelMatrix = () => {
+      hpr = this.Cesium.HeadingPitchRoll.fromDegrees(0.0, 0.0, 0.0, hpr);
+      trs.translation = this.Cesium.Cartesian3.fromElements(
+        -4.0,
+        0.0,
+        1.4,
+        translation
+      );
+      trs.rotation = this.Cesium.Quaternion.fromHeadingPitchRoll(hpr, rotation);
+
+      return this.Cesium.Matrix4.fromTranslationRotationScale(
+        trs,
+        emitterModelMatrix
+      );
+    };
+    {
+      let particleSystem = createParticleSystem({
+        image: require("../assets/cat.jpg"),
+
+        imageSize: new this.Cesium.Cartesian2(20, 20),
+        startScale: 0.001,
+        endScale: 4.0,
+        particleLife: 1.0,
+        speed: 5.0,
+        emitter: new this.Cesium.CircleEmitter(0.5),
+        emissionRate: 5.0,
+
+        emitterModelMatrix: computeEmitterModelMatrix(),
+        modelMatrix: this.Cesium.Transforms.eastNorthUpToFixedFrame(
+          this.Cesium.Cartesian3.fromDegrees(-75.59777, 40.03883)
+        )
       });
-      window.viewer.scene.primitives.add(primitive);
+      window.viewer.scene.primitives.add(particleSystem);
     }
   }
 };

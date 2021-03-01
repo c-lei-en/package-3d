@@ -6,6 +6,7 @@ function entity(type, options = {}) {
     case "polygon":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         polygon: {
           show: options.show || true,
           hierarchy: Cesium.Cartesian3.fromDegreesArray(options.hierarchy), // * polygon坐标
@@ -25,6 +26,7 @@ function entity(type, options = {}) {
     case "point":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1]
@@ -43,6 +45,7 @@ function entity(type, options = {}) {
     case "polyline":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         polyline: {
           show: options.show || true,
           positions: Cesium.Cartesian3.fromDegreesArray(
@@ -61,6 +64,7 @@ function entity(type, options = {}) {
     case "billboard":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1]
@@ -87,6 +91,7 @@ function entity(type, options = {}) {
     case "box":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1]
@@ -109,6 +114,7 @@ function entity(type, options = {}) {
     case "corridor":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         corridor: {
           show: options.show || true,
           positions: new Cesium.Cartesian3.fromDegreesArray(options.position),
@@ -130,6 +136,7 @@ function entity(type, options = {}) {
     case "cylinder":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1],
@@ -151,6 +158,7 @@ function entity(type, options = {}) {
     case "ellipse":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1],
@@ -178,6 +186,7 @@ function entity(type, options = {}) {
     case "ellipsoid":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1],
@@ -203,6 +212,7 @@ function entity(type, options = {}) {
     case "label":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1],
@@ -229,6 +239,7 @@ function entity(type, options = {}) {
     case "plane":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.position[0],
           options.position[1],
@@ -253,6 +264,7 @@ function entity(type, options = {}) {
     case "polylineVolume":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         polylineVolume: {
           show: options.show || true,
           positions: Cesium.Cartesian3.fromDegreesArrayHeights(
@@ -276,6 +288,7 @@ function entity(type, options = {}) {
     case "rectangle":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         rectangle: {
           show: options.show || true,
           coordinates: Cesium.Rectangle.fromDegrees(
@@ -302,6 +315,7 @@ function entity(type, options = {}) {
     case "wall":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         wall: {
           show: options.show || true,
           positions: Cesium.Cartesian3.fromDegreesArrayHeights(
@@ -320,6 +334,7 @@ function entity(type, options = {}) {
     case "model":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         position: Cesium.Cartesian3.fromDegrees(
           options.positions[0],
           options.positions[1],
@@ -366,6 +381,7 @@ function entity(type, options = {}) {
     case "tileset":
       entity = {
         name: options.name || "示例",
+        availability: options.availability,
         tileset: {
           show: options.show || true,
           uri: options.uri

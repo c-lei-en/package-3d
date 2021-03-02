@@ -47,7 +47,7 @@ function particleSystem(options = undefined) {
     scale: options.scale || 1.0,
     startScale: options.startScale,
     endScale: options.endScale,
-    color: options.color || Cesium.Color.WHITE,
+    color: options.color,
     startColor: options.startColor,
     endColor: options.endColor,
     image: options.image,

@@ -167,3 +167,178 @@ window.viewer.scene.preUpdate.addEventListener((scene, time) => {
 ```
 
 ![followModel](./displayParticleSystem/followModel.JPG)
+
+## fireworks
+
+```js
+let scene = window.viewer.scene;
+let modelMatrix = this.Cesium.Transforms.eastNorthUpToFixedFrame(
+  this.Cesium.Cartesian3.fromDegrees(-75.59777, 40.03883)
+);
+let emitterInitialLocation = new this.Cesium.Cartesian3(0.0, 0.0, 100.0);
+let particleCanvas;
+
+// * 创建粒子
+let getImage = () => {
+  if (!this.Cesium.defined(particleCanvas)) {
+    particleCanvas = document.createElement("canvas");
+    particleCanvas.width = 20;
+    particleCanvas.height = 20;
+    let context2D = particleCanvas.getContext("2d");
+    context2D.beginPath();
+    context2D.arc(8, 8, 8, 0, this.Cesium.Math.TWO_PI, true);
+    context2D.closePath();
+    context2D.fillStyle = "rgb(255, 255, 255)";
+    context2D.fill();
+  }
+  return particleCanvas;
+};
+
+let minimumExplosionSize = 30.0;
+let maximumExplosionSize = 100.0;
+let particlePixelSize = new this.Cesium.Cartesian2(7.0, 7.0);
+let burstSize = 400.0;
+let lifetime = 10.0;
+let numberOfFireworks = 20.0;
+let emitterModelMatrixScratch = new this.Cesium.Matrix4();
+
+// * 创建烟花
+let createFireworks = (offset, color, bursts) => {
+  // * 创建粒子发射器位置
+  let position = this.Cesium.Cartesian3.add(
+    emitterInitialLocation,
+    offset,
+    emitterModelMatrixScratch
+  );
+  let emitterModelMatrix = this.Cesium.Matrix4.fromTranslation(
+    position,
+    emitterModelMatrixScratch
+  );
+  let particleToWorld = this.Cesium.Matrix4.multiply(
+    modelMatrix,
+    emitterModelMatrix,
+    new this.Cesium.Matrix4()
+  );
+  let worldToParticle = this.Cesium.Matrix4.inverseTransformation(
+    particleToWorld,
+    particleToWorld
+  );
+  let size = this.Cesium.Math.randomBetween(
+    minimumExplosionSize,
+    maximumExplosionSize
+  );
+  let particlePositionScratch = new this.Cesium.Cartesian3();
+  let force = particle => {
+    let position = this.Cesium.Matrix4.multiplyByPoint(
+      worldToParticle,
+      particle.position,
+      particlePositionScratch
+    );
+    if (
+      this.Cesium.Cartesian3.magnitudeSquared(position) >=
+      size * size
+    ) {
+      this.Cesium.Cartesian3.clone(
+        this.Cesium.Cartesian3.ZERO,
+        particle.velocity
+      );
+    }
+  };
+  let normalSize =
+    (size - minimumExplosionSize) /
+    (maximumExplosionSize - minimumExplosionSize);
+  let minLife = 0.3;
+  let maxLife = 1.0;
+  let life = normalSize * (maxLife - minLife) + minLife;
+  scene.primitives.add(
+    createParticleSystem({
+      image: getImage(),
+      startColor: color,
+      endColor: color.withAlpha(0.0),
+      particleLife: life,
+      speed: 100.0,
+      imageSize: particlePixelSize,
+      emissionRate: 0,
+      emitter: new this.Cesium.SphereEmitter(0.1),
+      bursts: bursts,
+      lifetime: lifetime,
+      updateCallback: force,
+      modelMatrix: modelMatrix,
+      emitterModelMatrix: emitterModelMatrix
+    })
+  );
+};
+
+let xMin = -100.0;
+let xMax = 100.0;
+let yMin = -80.0;
+let yMax = 100.0;
+let zMin = -50.0;
+let zMax = 50.0;
+let colorOptions = [
+  {
+    minimumRed: 0.75,
+    green: 0.0,
+    minimumBlue: 0.8,
+    alpha: 1.0
+  },
+  {
+    red: 0.0,
+    minimumGreen: 0.75,
+    minimumBlue: 0.8,
+    alpha: 1.0
+  },
+  {
+    red: 0.0,
+    green: 0.0,
+    minimumBlue: 0.8,
+    alpha: 1.0
+  },
+  {
+    minimumRed: 0.75,
+    minimumGreen: 0.75,
+    blue: 0.0,
+    alpha: 1.0
+  }
+];
+
+for (let i = 0; i < numberOfFireworks; ++i) {
+  let x = this.Cesium.Math.randomBetween(xMin, xMax);
+  let y = this.Cesium.Math.randomBetween(yMin, yMax);
+  let z = this.Cesium.Math.randomBetween(zMin, zMax);
+  let offset = new this.Cesium.Cartesian3(x, y, z);
+  let color = this.Cesium.Color.fromRandom(
+    colorOptions[i % colorOptions.length]
+  );
+  let bursts = [];
+  for (let j = 0; j < 3; ++j) {
+    bursts.push(
+      new this.Cesium.ParticleBurst({
+        time: this.Cesium.Math.nextRandomNumber() * lifetime,
+        minimum: burstSize,
+        maximum: burstSize
+      })
+    );
+  }
+  createFireworks(offset, color, bursts);
+}
+
+let cam = window.viewer.scene.camera;
+let cameraOffset = new this.Cesium.Cartesian3(-300.0, 0.0, 0.0);
+cam.lookAtTransform(modelMatrix, cameraOffset);
+cam.lookAtTransform(this.Cesium.Matrix4.IDENTITY);
+let toFireworks = this.Cesium.Cartesian3.subtract(
+  emitterInitialLocation,
+  cameraOffset,
+  new this.Cesium.Cartesian3()
+);
+this.Cesium.Cartesian3.normalize(toFireworks, toFireworks);
+let angle =
+  this.Cesium.Math.PI_OVER_TWO -
+  Math.acos(
+    this.Cesium.Cartesian3.dot(toFireworks, this.Cesium.Cartesian3.UNIT_Z)
+  );
+cam.lookUp(angle);
+```
+
+![fireworks](./displayParticleSystem/fireworks.JPG)

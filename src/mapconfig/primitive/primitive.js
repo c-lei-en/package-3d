@@ -678,6 +678,35 @@ function primitive(type, options = {}) {
         id: options.id || "wallOutline"
       });
       break;
+    case "3dTile":
+      instance = new Cesium.Cesium3DTileset({
+        url: options.url,
+        show: options.show || true,
+        modelMatrix: options.modelMatrix,
+        shadows: options.shadows,
+        maximumMemoryUsage: options.maximumMemoryUsage || 512,
+        cullWithChildrenBounds: options.cullWithChildrenBounds || true,
+        cullRequestsWhileMoving: options.cullRequestsWhileMoving || true,
+        cullRequestsWhileMovingMultiplier:
+          options.cullRequestsWhileMovingMultiplier || 60.0,
+        preloadWhenHidden: options.preloadWhenHidden || false,
+        preloadFlightDestinations: options.preloadFlightDestinations || true,
+        preferLeaves: options.preferLeaves || false,
+        dynamicScreenSpaceError: options.dynamicScreenSpaceError || false,
+        dynamicScreenSpaceErrorDensity:
+          options.dynamicScreenSpaceErrorDensity || 0.00278,
+        dynamicScreenSpaceErrorFactor:
+          options.dynamicScreenSpaceErrorFactor || 4.0,
+        dynamicScreenSpaceErrorHeightFalloff:
+          options.dynamicScreenSpaceErrorHeightFalloff || 0.25,
+        progressiveResolutionHeightFraction:
+          options.progressiveResolutionHeightFraction || 0.3,
+        foveatedScreenSpaceError: options.foveatedScreenSpaceError || true,
+        foveatedConeSize: options.foveatedConeSize || 0.1,
+        skipLevelOfDetail: options.skipLevelOfDetail || false,
+        skipLevels: options.skipLevels || 1
+      });
+      break;
     default:
       break;
   }

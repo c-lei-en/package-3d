@@ -731,6 +731,12 @@ export default {
       //   debugShowBoundingVolume: false // * 为true表示展示primitive的边界球
       // });
       // window.viewer.scene.primitives.add(primitive);
+      // * 3dtile
+      // let primitive = createPrimitve("3dTile", {
+      //   url: "http://localhost:8091/cz/tileset.json"
+      // });
+      // let pri = window.viewer.scene.primitives.add(primitive);
+      // window.viewer.zoomTo(pri);
     }
 
     // ? ParticleSystem

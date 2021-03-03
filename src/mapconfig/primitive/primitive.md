@@ -581,3 +581,15 @@ appearance: new this.Cesium.PerInstanceColorAppearance({
 ```
 
 ![wallOutline](./displayPrimitive/wallOutline.JPG)
+
+## 3dtile
+
+```js
+let primitive = createPrimitve("3dTile", {
+  url: "http://localhost:8091/cz/tileset.json"
+});
+let pri = window.viewer.scene.primitives.add(primitive);
+window.viewer.zoomTo(pri);
+```
+
+![3dtile](./displayPrimitive/3dtile.JPG)

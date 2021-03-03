@@ -44,7 +44,7 @@ function particleSystem(options = undefined) {
     emissionRate: options.emissionRate || 5,
     bursts: options.bursts || [],
     loop: options.loop || true,
-    scale: options.scale || 1.0,
+    scale: options.scale,
     startScale: options.startScale,
     endScale: options.endScale,
     color: options.color,

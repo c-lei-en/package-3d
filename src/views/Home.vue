@@ -1057,9 +1057,149 @@ export default {
       // cam.lookUp(angle);
     }
 
-    // * weather
+    // * weather snow
+    {
+      // let scene = window.viewer.scene;
+      // scene.camera.setView({
+      //   destination: new this.Cesium.Cartesian3(
+      //     277096.634865404,
+      //     5647834.481964232,
+      //     2985563.7039122293
+      //   ),
+      //   orientation: {
+      //     heading: 4.731089976107251,
+      //     pitch: -0.32003481981370063
+      //   }
+      // });
+      // // * 雪
+      // let snowParticleSize = 12.0;
+      // let snowRadius = 100000.0;
+      // let minimumSnowImageSize = new this.Cesium.Cartesian2(
+      //   snowParticleSize,
+      //   snowParticleSize
+      // );
+      // let maximumSnowImageSize = new this.Cesium.Cartesian2(
+      //   snowParticleSize * 2.0,
+      //   snowParticleSize * 2.0
+      // );
+      // let snowGravityScratch = new this.Cesium.Cartesian3();
+      // let snowSystem;
+      // let snowUpdate = particle => {
+      //   snowGravityScratch = this.Cesium.Cartesian3.normalize(
+      //     particle.position,
+      //     snowGravityScratch
+      //   );
+      //   this.Cesium.Cartesian3.multiplyByScalar(
+      //     snowGravityScratch,
+      //     this.Cesium.Math.randomBetween(-30.0, -300.0),
+      //     snowGravityScratch
+      //   );
+      //   particle.velocity = this.Cesium.Cartesian3.add(
+      //     particle.velocity,
+      //     snowGravityScratch,
+      //     particle.velocity
+      //   );
+      //   let distance = this.Cesium.Cartesian3.distance(
+      //     scene.camera.position,
+      //     particle.position
+      //   );
+      //   if (distance > snowRadius) {
+      //     particle.endColor.alpha = 0.0;
+      //   } else {
+      //     particle.endColor.alpha =
+      //       snowSystem.endColor.alpha / (distance / snowRadius + 0.1);
+      //   }
+      // };
+      // snowSystem = createParticleSystem({
+      //   modelMatrix: new this.Cesium.Matrix4.fromTranslation(
+      //     scene.camera.position
+      //   ),
+      //   minimumSpeed: -1.0,
+      //   maximumSpeed: 0.0,
+      //   lifetime: 15.0,
+      //   emitter: new this.Cesium.SphereEmitter(snowRadius),
+      //   startScale: 0.5,
+      //   endScale: 1.0,
+      //   image: "http://localhost:8091/SampleData/snowflake_particle.png",
+      //   emissionRate: 7000.0,
+      //   startColor: this.Cesium.Color.WHITE.withAlpha(0.0),
+      //   endColor: this.Cesium.Color.WHITE.withAlpha(1.0),
+      //   minimumImageSize: minimumSnowImageSize,
+      //   maximumImageSize: maximumSnowImageSize,
+      //   updateCallback: snowUpdate
+      // });
+      // scene.primitives.add(snowSystem);
+    }
+
+    // * weather rain
     {
       let scene = window.viewer.scene;
+
+      scene.camera.setView({
+        destination: new this.Cesium.Cartesian3(
+          277096.634865404,
+          5647834.481964232,
+          2985563.7039122293
+        ),
+        orientation: {
+          heading: 4.731089976107251,
+          pitch: -0.32003481981370063
+        }
+      });
+
+      // * 雨
+      let rainParticleSize = 15.0;
+      let rainRadius = 100000.0;
+      let rainImageSize = new this.Cesium.Cartesian2(
+        rainParticleSize,
+        rainParticleSize * 2.0
+      );
+      let rainGravityScratch = new this.Cesium.Cartesian3();
+      let rainSystem;
+      let rainUpdate = particle => {
+        rainGravityScratch = this.Cesium.Cartesian3.normalize(
+          particle.position,
+          rainGravityScratch
+        );
+        this.Cesium.Cartesian3.multiplyByScalar(
+          rainGravityScratch,
+          -1050.0,
+          rainGravityScratch
+        );
+        particle.velocity = this.Cesium.Cartesian3.add(
+          particle.velocity,
+          rainGravityScratch,
+          particle.velocity
+        );
+        let distance = this.Cesium.Cartesian3.distance(
+          scene.camera.position,
+          particle.position
+        );
+        if (distance > rainRadius) {
+          particle.endColor.alpha = 0.0;
+        } else {
+          particle.endColor.alpha =
+            rainSystem.endColor.alpha / (distance / rainRadius + 0.1);
+        }
+      };
+      rainSystem = createParticleSystem({
+        modelMatrix: new this.Cesium.Matrix4.fromTranslation(
+          scene.camera.position
+        ),
+        minimumSpeed: -1.0,
+        maximumSpeed: 0.0,
+        lifetime: 15.0,
+        emitter: new this.Cesium.SphereEmitter(rainRadius),
+        startScale: 1.0,
+        endScale: 0.0,
+        image: "http://localhost:8091/SampleData/circular_particle.png",
+        emissionRate: 7000.0,
+        startColor: new this.Cesium.Color(0.27, 0.5, 0.7, 0.0),
+        endColor: new this.Cesium.Color(0.27, 0.5, 0.7, 0.98),
+        imageSize: rainImageSize,
+        updateCallback: rainUpdate
+      });
+      scene.primitives.add(rainSystem);
     }
   }
 };

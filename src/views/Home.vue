@@ -1,5 +1,10 @@
 <template>
-  <div id="cesiumContainer" style="width:100%;height:100%"></div>
+  <div style="width:100%;height:100%">
+    <!-- <div class="infoBox">
+      <span>123</span>
+    </div> -->
+    <div id="cesiumContainer" style="width:100%;height:100%"></div>
+  </div>
 </template>
 
 <script>
@@ -10,6 +15,7 @@ import Camera from "@/mapconfig/camera/camera";
 // import createEntity from "@/mapconfig/entity/entity";
 // import createPrimitve from "@/mapconfig/primitive/primitive";
 // import createParticleSystem from "@/mapconfig/particleSystem/particleSystem";
+// import { popFun } from "@/mapconfig/infoBox/infoBox";
 export default {
   name: "Home",
   mounted() {
@@ -1244,6 +1250,29 @@ export default {
       //   window.viewer.entities.remove(cesiumWallBillboard._entities);
       // }, 400000);
     }
+
+    // ? infoBox 随地球移动的信息窗口
+    // popFun(new this.Cesium.Cartesian3(-1076075, 5245631, 3453356));
   }
 };
 </script>
+<style scoped>
+/* .infoBox {
+  position: fixed;
+  background: yellowgreen;
+  width: 50px;
+  height: 50px;
+  z-index: 1000;
+}
+.infoBox::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-top-color: yellowgreen;
+  position: absolute;
+  left: 16px; 
+  top: 100%; 
+}
+*/
+</style>

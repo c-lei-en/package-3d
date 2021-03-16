@@ -28,7 +28,6 @@ export function popFun(cartesain) {
   positionPopUp(coordinates, infoDiv);
 
   listenerEvt = function() {
-    console.log(cartesain);
     let new_cartesain = Cesium.Cartesian3.fromRadians(
       cartographic.longitude,
       cartographic.latitude,

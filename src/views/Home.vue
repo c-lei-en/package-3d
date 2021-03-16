@@ -36,13 +36,16 @@ export default {
       projectionPicker: false, // * 透视投影和正投影之间切换
       requestRenderMode: true, // * 在指定情况下进行渲染,提高性能
       imageryProvider: createImageryProvider(
-        "arcgis",
-        "https://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"
+        "wmts",
+        "http://t0.tianditu.gov.cn/img_w/wmts?tk=c0b9cb30599dd11c468c8aaa2fc1863a",
+        {
+          layer: "img",
+          format: "image/jpeg",
+          tileMatrixSetID: "w",
+          maximumLevel: 18
+        }
       ),
-      terrainProvider: addTerrain(
-        "cesiumTerrain",
-        "http://localhost:8091/jiuzhaigou"
-      )
+      terrainProvider: addTerrain("ionTerrain")
     });
     // let layers = window.viewer.scene.imageryLayers;
     // let imaPro = createImageryProvider(
@@ -70,7 +73,7 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([0, 0, 10000000.0], {
+    camera.setView([118.05741, 24.630362, 100.0], {
       heading: 0,
       pitch: -90,
       roll: 0
@@ -1205,6 +1208,41 @@ export default {
         // });
         // scene.primitives.add(rainSystem);
       }
+    }
+
+    // ? cesiumWallBillboard
+    {
+      // let cesiumWallBillboard = new this.Cesium.CesiumWallBillboard({
+      //   viewer: window.viewer,
+      //   center: {
+      //     // 广告牌中心点
+      //     longitude: 118.05741,
+      //     latitude: 24.630362,
+      //     height: 80
+      //   },
+      //   width: 150, // 广告牌宽度
+      //   height: 50, // 广告牌高度
+      //   rotate: 180, // 正北顺时针角度
+      //   content: `
+      //       <style>
+      //           .border-box{padding: 5px;width:calc(100% - 14px);height:calc(100% - 14px);background: rgba(1, 19, 67, 0.4);border: 2px solid rgb(0, 161, 255);border-radius: 8px;font-size: 12px;color: white;}
+      //           .border-box::before {position: absolute;top: -2px;bottom: -2px;left: 2px;width: calc(100% - 4px);content: "";border-top: 2px solid rgb(1, 104, 134);border-bottom: 2px solid rgb(1, 104, 134);z-index: 0;}
+      //           .border-box::after {position: absolute;top: 2px;right: -2px;left: -2px;height: calc(100% - 4px);content: "";border-right: 2px solid rgb(1, 104, 134);border-left: 2px solid rgb(1, 104, 134);z-index: 0;}
+      //       </style>
+      //       <div class="border-box">
+      //       <div>"BSM":"370100000000091188",</div>
+      //       <div>"CG":"3",</div>
+      //       <div>"CODE":"370100",</div>
+      //       <div>"CS":"15",</div>
+      //       <div>"LG":"45",</div>
+      //       <div>"NAME":"楼房91188",</div>
+      //       <div>"UID":"bc2e4443-2fbb-11ea-9cec-380025e8e3aa",</div>
+      //       <div>"id":"91188"</div>
+      //   </div>`
+      // });
+      // setInterval(() => {
+      //   window.viewer.entities.remove(cesiumWallBillboard._entities);
+      // }, 400000);
     }
   }
 };

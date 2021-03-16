@@ -105,6 +105,7 @@ function createImageryProvider(type, url, options) {
         format: options.format,
         tileMatrixSetID: options.tileMatrixSetID,
         tileMatrixLabels: options.matrixIds,
+        maximumLevel: options.maximumLevel,
         tilingScheme: options.tilingScheme
           ? new Cesium.GeographicTilingScheme({
               numberOfLevelZeroTilesX: options.tilingScheme[0],

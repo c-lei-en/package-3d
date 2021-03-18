@@ -11,6 +11,7 @@ GlobeTooltip.prototype = {
 
     let div = document.createElement("div");
     div.className = "twipsy-right";
+    div.style.position = "absolute";
 
     let arrow = document.createElement("div");
     arrow.className = "twipsy-arrow";

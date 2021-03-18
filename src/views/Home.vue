@@ -16,7 +16,8 @@ import Camera from "@/mapconfig/camera/camera";
 // import createPrimitve from "@/mapconfig/primitive/primitive";
 // import createParticleSystem from "@/mapconfig/particleSystem/particleSystem";
 // import { popFun } from "@/mapconfig/infoBox/infoBox";
-import { startDrawGroundPolygon } from "@/mapconfig/measure/groundArea";
+// import { startDrawGroundPolygon } from "@/mapconfig/measure/groundArea";
+import { MeasureStickDis } from "@/mapconfig/measure/groundLength";
 export default {
   name: "Home",
   mounted() {
@@ -51,8 +52,8 @@ export default {
           tileMatrixSetID: "w",
           maximumLevel: 18
         }
-      ),
-      terrainProvider: addTerrain("ionTerrain")
+      )
+      // terrainProvider: addTerrain("ionTerrain")
     });
     // let layers = window.viewer.scene.imageryLayers;
     // let imaPro = createImageryProvider(
@@ -1256,7 +1257,10 @@ export default {
     // popFun(new this.Cesium.Cartesian3(-1076075, 5245631, 3453356));
 
     // ? 贴地面积测量
-    startDrawGroundPolygon();
+    // startDrawGroundPolygon();
+
+    // ? 贴地线测量
+    MeasureStickDis();
   }
 };
 </script>

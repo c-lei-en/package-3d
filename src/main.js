@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 let Cesium = require("cesium/Cesium");
 let widgets = require("cesium/Widgets/widgets.css");
+import "@/mapconfig/measure/measure.css";
 import "./mapconfig/cesiumWallBillboard/cesiumWallBillboard";
 
 Cesium.Ion.defaultAccessToken =

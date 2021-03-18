@@ -1,9 +1,9 @@
 <template>
-  <div style="width:100%;height:100%">
+  <div style="width:100%;height:100%;">
     <!-- <div class="infoBox">
       <span>123</span>
     </div> -->
-    <div id="cesiumContainer" style="width:100%;height:100%"></div>
+    <div id="cesiumContainer" style="width:100%;height:100%;"></div>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import Camera from "@/mapconfig/camera/camera";
 // import createPrimitve from "@/mapconfig/primitive/primitive";
 // import createParticleSystem from "@/mapconfig/particleSystem/particleSystem";
 // import { popFun } from "@/mapconfig/infoBox/infoBox";
+import { startDrawGroundPolygon } from "@/mapconfig/measure/groundArea";
 export default {
   name: "Home",
   mounted() {
@@ -79,9 +80,9 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([118.05741, 24.630362, 100.0], {
+    camera.setView([104.23672, 33.26318, 1000.0], {
       heading: 0,
-      pitch: -90,
+      pitch: -45,
       roll: 0
     });
 
@@ -1253,6 +1254,9 @@ export default {
 
     // ? infoBox 随地球移动的信息窗口
     // popFun(new this.Cesium.Cartesian3(-1076075, 5245631, 3453356));
+
+    // ? 贴地面积测量
+    startDrawGroundPolygon();
   }
 };
 </script>

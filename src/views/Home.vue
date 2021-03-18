@@ -52,8 +52,8 @@ export default {
           tileMatrixSetID: "w",
           maximumLevel: 18
         }
-      )
-      // terrainProvider: addTerrain("ionTerrain")
+      ),
+      terrainProvider: addTerrain("ionTerrain")
     });
     // let layers = window.viewer.scene.imageryLayers;
     // let imaPro = createImageryProvider(

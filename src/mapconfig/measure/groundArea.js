@@ -18,9 +18,7 @@ let layerId = "arealayer",
 
 Vue.nextTick(() => {
   tooltip = new GlobeTooltip(window.viewer.container);
-  Vue.nextTick(() => {
-    tooltip.setVisible(false);
-  });
+  tooltip.setVisible(false);
 });
 
 // * 开始绘制贴地面

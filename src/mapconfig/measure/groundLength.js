@@ -439,15 +439,14 @@ function CountLineLength(tempPositions) {
 
 // * 设置tip
 function getMeasureTip(tempPositions) {
-  // try {
-
-  let dis3d = computeLineDIs3d(tempPositions);
-  dis3d = dis3d.toFixed(3);
-  let tip = `距离：${dis3d}千米`;
-  return tip;
-  // } catch (e) {
-  //   throw new Error("超出计算范围,请缩短距离");
-  // }
+  try {
+    let dis3d = computeLineDIs3d(tempPositions);
+    dis3d = dis3d.toFixed(3);
+    let tip = `距离：${dis3d}千米`;
+    return tip;
+  } catch (e) {
+    throw new Error("超出计算范围,请缩短距离");
+  }
 }
 
 // * 计算距离

@@ -17,7 +17,9 @@ import Camera from "@/mapconfig/camera/camera";
 // import createParticleSystem from "@/mapconfig/particleSystem/particleSystem";
 // import { popFun } from "@/mapconfig/infoBox/infoBox";
 // import { startDrawGroundPolygon } from "@/mapconfig/measure/groundArea";
-import { MeasureStickDis } from "@/mapconfig/measure/groundLength";
+// import { MeasureStickDis } from "@/mapconfig/measure/groundLength";
+// import { MeasureStickDis as planeLength } from "@/mapconfig/measure/planeLength";
+import { startDrawGroundPolygon as planeArea } from "@/mapconfig/measure/planeArea";
 export default {
   name: "Home",
   mounted() {
@@ -1260,7 +1262,13 @@ export default {
     // startDrawGroundPolygon();
 
     // ? 贴地线测量
-    MeasureStickDis();
+    // MeasureStickDis();
+
+    // ? 平面线测量
+    // planeLength();
+
+    // ? 平面面积测量
+    planeArea();
   }
 };
 </script>

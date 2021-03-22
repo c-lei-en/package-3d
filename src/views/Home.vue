@@ -13,13 +13,14 @@ import addTerrain from "@/mapconfig/addTerrain/addTerrain";
 import Camera from "@/mapconfig/camera/camera";
 // import createDataSource from "@/mapconfig/dataSource/dataSource";
 // import createEntity from "@/mapconfig/entity/entity";
-// import createPrimitve from "@/mapconfig/primitive/primitive";
+import createPrimitve from "@/mapconfig/primitive/primitive";
 // import createParticleSystem from "@/mapconfig/particleSystem/particleSystem";
 // import { popFun } from "@/mapconfig/infoBox/infoBox";
 // import { startDrawGroundPolygon } from "@/mapconfig/measure/groundArea";
 // import { MeasureStickDis } from "@/mapconfig/measure/groundLength";
 // import { MeasureStickDis as planeLength } from "@/mapconfig/measure/planeLength";
-import { startDrawGroundPolygon as planeArea } from "@/mapconfig/measure/planeArea";
+// import { startDrawGroundPolygon as planeArea } from "@/mapconfig/measure/planeArea";
+import ViewShedStage from "@/mapconfig/viewshedAnalysis/ViewshedAnalysis";
 export default {
   name: "Home",
   mounted() {
@@ -83,7 +84,7 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([104.23672, 33.26318, 1000.0], {
+    camera.setView([104.23672, 33.26318, 2000.0], {
       heading: 0,
       pitch: -45,
       roll: 0
@@ -1268,7 +1269,39 @@ export default {
     // planeLength();
 
     // ? 平面面积测量
-    planeArea();
+    // planeArea();
+
+    // ? 可视域分析
+    let primitive = createPrimitve("3dTile", {
+      url: "http://localhost:8091/cz/tileset.json"
+    });
+    let pri = window.viewer.scene.primitives.add(primitive);
+    window.viewer.zoomTo(pri);
+
+    window.viewer.scene.globe.depthTestAgainstTerrain = true;
+
+    window.viewer.scene.globe.enableLighting = true;
+
+    let drawHandler = new this.Cesium.ScreenSpaceEventHandler(
+      window.viewer.scene.canvas
+    );
+
+    // * 监测鼠标左击事件
+    drawHandler.setInputAction(event => {
+      let position = event.position;
+      if (!this.Cesium.defined(position)) return;
+
+      let ray = window.viewer.camera.getPickRay(position);
+      if (!this.Cesium.defined(ray)) return;
+
+      let cartesian = window.viewer.scene.globe.pick(ray, window.viewer.scene);
+      if (!this.Cesium.defined(cartesian)) return;
+
+      new ViewShedStage(window.viewer, {
+        viewPosition: cartesian,
+        viewDistance: 1000
+      });
+    }, this.Cesium.ScreenSpaceEventType.LEFT_CLICK);
   }
 };
 </script>

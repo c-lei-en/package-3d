@@ -1307,11 +1307,9 @@ export default {
       window.viewer.scene.globe.depthTestAgainstTerrain = true;
       let obj = new SubmergenceAnalysis(
         window.viewer,
-        true,
         3800,
         1000,
         1,
-        true,
         [
           112.419718,
           37.927023,

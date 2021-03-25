@@ -3,6 +3,9 @@
     <!-- <div class="infoBox">
       <span>123</span>
     </div> -->
+    <video id="myVideo" muted="" autoplay="" loop="" crossorigin="" controls="">
+      <source src="http://localhost:8091/淹没分析.mp4" type="video/mp4" />
+    </video>
     <div id="cesiumContainer" style="width:100%;height:100%;"></div>
   </div>
 </template>
@@ -22,6 +25,7 @@ import Camera from "@/mapconfig/camera/camera";
 // import { startDrawGroundPolygon as planeArea } from "@/mapconfig/measure/planeArea";
 // import ViewShedStage from "@/mapconfig/viewshedAnalysis/ViewshedAnalysis";
 // import SubmergenceAnalysis from "@/mapconfig/floodAnalysis/FloodAnalysis";
+import VideoOn from "@/mapconfig/videoOn/videoOn";
 export default {
   name: "Home",
   mounted() {
@@ -40,7 +44,7 @@ export default {
       navigationInstructionsInitiallyVisible: false, // * 是否展开帮助
       scene3DOnly: true, // * 如果设置为true，则所有几何图形以3D模式绘制以节约GPU资源
       useDefaultRenderLoop: true, // * 控制渲染循环
-      showRenderLoopErrors: true, // * HTML面板中显示错误信息
+      showRenderLoopErrors: false, // * HTML面板中显示错误信息
       useBrowserRecommendedResolution: true, // * 如果为true，则以浏览器建议的分辨率渲染并忽略window.devicePixelRatio
       automaticallyTrackDataSourceClocks: true, // * 自动追踪最近添加的数据源的时钟设置
       orderIndependentTranslucency: true, // * 如果为true并且配置支持它，则使用顺序无关的半透明性
@@ -85,7 +89,7 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([112.4383442264, 37.9360048372, 2000.0], {
+    camera.setView([113, 23.1, 2000.0], {
       heading: 0,
       pitch: -45,
       roll: 0
@@ -1327,84 +1331,90 @@ export default {
 
     // ? 热力图
     {
-      let bounds = {
-        west: 112.419718,
-        east: 112.442443,
-        south: 37.916786,
-        north: 37.947023
-      };
+      // let bounds = {
+      //   west: 112.419718,
+      //   east: 112.442443,
+      //   south: 37.916786,
+      //   north: 37.947023
+      // };
+      // let data = [
+      //   { x: 112.4383442264, y: 37.9360048372, value: 76 },
+      //   { x: 112.4384363011, y: 37.9360298848, value: 63 },
+      //   { x: 112.438368102, y: 37.9358360603, value: 1 },
+      //   { x: 112.4385627739, y: 37.9358799123, value: 21 },
+      //   { x: 112.4385138501, y: 37.9359327669, value: 28 },
+      //   { x: 112.4385031219, y: 37.9359730105, value: 41 },
+      //   { x: 112.4384127393, y: 37.935928255, value: 75 },
+      //   { x: 112.4384551136, y: 37.9359450132, value: 3 },
+      //   { x: 112.4384927196, y: 37.9359158649, value: 45 },
+      //   { x: 112.4384938639, y: 37.9358498311, value: 45 },
+      //   { x: 112.4385183299, y: 37.9360213794, value: 93 },
+      //   { x: 112.4384007925, y: 37.9359860133, value: 46 },
+      //   { x: 112.4383604844, y: 37.9358298672, value: 54 },
+      //   { x: 112.43851025, y: 37.9359098303, value: 39 },
+      //   { x: 112.4383874733, y: 37.9358511035, value: 34 },
+      //   { x: 112.4384981796, y: 37.9359355403, value: 81 },
+      //   { x: 112.4384504107, y: 37.9360332348, value: 39 },
+      //   { x: 112.4385582664, y: 37.9359788335, value: 20 },
+      //   { x: 112.4383967364, y: 37.9360581999, value: 35 },
+      //   { x: 112.4383839615, y: 37.936016316, value: 47 },
+      //   { x: 112.4384082712, y: 37.9358423338, value: 36 },
+      //   { x: 112.4385092651, y: 37.9358577623, value: 69 },
+      //   { x: 112.438360356, y: 37.936046789, value: 90 },
+      //   { x: 112.438471893, y: 37.9359184292, value: 88 },
+      //   { x: 112.4385605689, y: 37.9360271359, value: 81 },
+      //   { x: 112.4383585714, y: 37.9359362476, value: 32 },
+      //   { x: 112.4384939114, y: 37.9358844253, value: 67 },
+      //   { x: 112.438466724, y: 37.936019121, value: 17 },
+      //   { x: 112.4385504355, y: 37.9360614056, value: 49 },
+      //   { x: 112.4383883832, y: 37.9358733544, value: 82 },
+      //   { x: 112.4385670669, y: 37.9359650236, value: 25 },
+      //   { x: 112.4383416534, y: 37.9359310876, value: 82 },
+      //   { x: 112.438525285, y: 37.9359394661, value: 66 },
+      //   { x: 112.4385487719, y: 37.9360137656, value: 73 },
+      //   { x: 112.4385496029, y: 37.9359187277, value: 73 },
+      //   { x: 112.4383989222, y: 37.9358556562, value: 61 },
+      //   { x: 112.4385499424, y: 37.9359149305, value: 67 },
+      //   { x: 112.438404523, y: 37.9359563326, value: 90 },
+      //   { x: 112.4383883675, y: 37.9359794855, value: 78 },
+      //   { x: 112.4383967187, y: 37.935891185, value: 15 },
+      //   { x: 112.4384610005, y: 37.9359044797, value: 15 },
+      //   { x: 112.4384688489, y: 37.9360396127, value: 91 },
+      //   { x: 112.4384431875, y: 37.9360684409, value: 8 },
+      //   { x: 112.4385411067, y: 37.9360645847, value: 42 },
+      //   { x: 112.4385237178, y: 37.9358843181, value: 31 },
+      //   { x: 112.4384406464, y: 37.9360003831, value: 51 },
+      //   { x: 112.4384679169, y: 37.9359950456, value: 96 },
+      //   { x: 112.4384194314, y: 37.9358419739, value: 22 },
+      //   { x: 112.4385049792, y: 37.9359574813, value: 44 },
+      //   { x: 112.4384097378, y: 37.9358598672, value: 82 },
+      //   { x: 112.4384993219, y: 37.9360352975, value: 84 },
+      //   { x: 112.4383640499, y: 37.9359839518, value: 81 }
+      // ];
+      // let options = {
+      //   bounds: bounds,
+      //   data: {
+      //     max: 100,
+      //     min: 0,
+      //     points: data
+      //   },
+      //   heatmapOptions: {
+      //     radius: 50,
+      //     maxOpacity: 0.5,
+      //     minOpacity: 0,
+      //     blur: 0.75
+      //   }
+      // };
+      // let instance = new this.Cesium.HeatmapImageryProvider(options);
+      // window.viewer.scene.imageryLayers.addImageryProvider(instance);
+    }
 
-      let data = [
-        { x: 112.4383442264, y: 37.9360048372, value: 76 },
-        { x: 112.4384363011, y: 37.9360298848, value: 63 },
-        { x: 112.438368102, y: 37.9358360603, value: 1 },
-        { x: 112.4385627739, y: 37.9358799123, value: 21 },
-        { x: 112.4385138501, y: 37.9359327669, value: 28 },
-        { x: 112.4385031219, y: 37.9359730105, value: 41 },
-        { x: 112.4384127393, y: 37.935928255, value: 75 },
-        { x: 112.4384551136, y: 37.9359450132, value: 3 },
-        { x: 112.4384927196, y: 37.9359158649, value: 45 },
-        { x: 112.4384938639, y: 37.9358498311, value: 45 },
-        { x: 112.4385183299, y: 37.9360213794, value: 93 },
-        { x: 112.4384007925, y: 37.9359860133, value: 46 },
-        { x: 112.4383604844, y: 37.9358298672, value: 54 },
-        { x: 112.43851025, y: 37.9359098303, value: 39 },
-        { x: 112.4383874733, y: 37.9358511035, value: 34 },
-        { x: 112.4384981796, y: 37.9359355403, value: 81 },
-        { x: 112.4384504107, y: 37.9360332348, value: 39 },
-        { x: 112.4385582664, y: 37.9359788335, value: 20 },
-        { x: 112.4383967364, y: 37.9360581999, value: 35 },
-        { x: 112.4383839615, y: 37.936016316, value: 47 },
-        { x: 112.4384082712, y: 37.9358423338, value: 36 },
-        { x: 112.4385092651, y: 37.9358577623, value: 69 },
-        { x: 112.438360356, y: 37.936046789, value: 90 },
-        { x: 112.438471893, y: 37.9359184292, value: 88 },
-        { x: 112.4385605689, y: 37.9360271359, value: 81 },
-        { x: 112.4383585714, y: 37.9359362476, value: 32 },
-        { x: 112.4384939114, y: 37.9358844253, value: 67 },
-        { x: 112.438466724, y: 37.936019121, value: 17 },
-        { x: 112.4385504355, y: 37.9360614056, value: 49 },
-        { x: 112.4383883832, y: 37.9358733544, value: 82 },
-        { x: 112.4385670669, y: 37.9359650236, value: 25 },
-        { x: 112.4383416534, y: 37.9359310876, value: 82 },
-        { x: 112.438525285, y: 37.9359394661, value: 66 },
-        { x: 112.4385487719, y: 37.9360137656, value: 73 },
-        { x: 112.4385496029, y: 37.9359187277, value: 73 },
-        { x: 112.4383989222, y: 37.9358556562, value: 61 },
-        { x: 112.4385499424, y: 37.9359149305, value: 67 },
-        { x: 112.438404523, y: 37.9359563326, value: 90 },
-        { x: 112.4383883675, y: 37.9359794855, value: 78 },
-        { x: 112.4383967187, y: 37.935891185, value: 15 },
-        { x: 112.4384610005, y: 37.9359044797, value: 15 },
-        { x: 112.4384688489, y: 37.9360396127, value: 91 },
-        { x: 112.4384431875, y: 37.9360684409, value: 8 },
-        { x: 112.4385411067, y: 37.9360645847, value: 42 },
-        { x: 112.4385237178, y: 37.9358843181, value: 31 },
-        { x: 112.4384406464, y: 37.9360003831, value: 51 },
-        { x: 112.4384679169, y: 37.9359950456, value: 96 },
-        { x: 112.4384194314, y: 37.9358419739, value: 22 },
-        { x: 112.4385049792, y: 37.9359574813, value: 44 },
-        { x: 112.4384097378, y: 37.9358598672, value: 82 },
-        { x: 112.4384993219, y: 37.9360352975, value: 84 },
-        { x: 112.4383640499, y: 37.9359839518, value: 81 }
-      ];
-
-      let options = {
-        bounds: bounds,
-        data: {
-          max: 100,
-          min: 0,
-          points: data
-        },
-        heatmapOptions: {
-          radius: 50,
-          maxOpacity: 0.5,
-          minOpacity: 0,
-          blur: 0.75
-        }
-      };
-      let instance = new this.Cesium.HeatmapImageryProvider(options);
-      window.viewer.scene.imageryLayers.addImageryProvider(instance);
+    // ? 视频投影
+    {
+      this.$nextTick(() => {
+        let rectangle = VideoOn(113, 23.1, 113.1, 23.2);
+        window.viewer.trackedEntity = rectangle;
+      });
     }
   }
 };

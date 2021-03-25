@@ -3,9 +3,9 @@
     <!-- <div class="infoBox">
       <span>123</span>
     </div> -->
-    <video id="myVideo" muted="" autoplay="" loop="" crossorigin="" controls="">
+    <!-- <video id="myVideo" muted="" autoplay="" loop="" crossorigin="" controls="">
       <source src="http://localhost:8091/淹没分析.mp4" type="video/mp4" />
-    </video>
+    </video> -->
     <div id="cesiumContainer" style="width:100%;height:100%;"></div>
   </div>
 </template>
@@ -25,7 +25,8 @@ import Camera from "@/mapconfig/camera/camera";
 // import { startDrawGroundPolygon as planeArea } from "@/mapconfig/measure/planeArea";
 // import ViewShedStage from "@/mapconfig/viewshedAnalysis/ViewshedAnalysis";
 // import SubmergenceAnalysis from "@/mapconfig/floodAnalysis/FloodAnalysis";
-import VideoOn from "@/mapconfig/videoOn/videoOn";
+// import VideoOn from "@/mapconfig/videoOn/videoOn";
+import { VisibilityAnalysis } from "@/mapconfig/visibilityAnalysis/visibilityAnalysis";
 export default {
   name: "Home",
   mounted() {
@@ -1411,10 +1412,15 @@ export default {
 
     // ? 视频投影
     {
-      this.$nextTick(() => {
-        let rectangle = VideoOn(113, 23.1, 113.1, 23.2);
-        window.viewer.trackedEntity = rectangle;
-      });
+      // this.$nextTick(() => {
+      //   let rectangle = VideoOn(113, 23.1, 113.1, 23.2);
+      //   window.viewer.trackedEntity = rectangle;
+      // });
+    }
+
+    // ? 通视分析
+    {
+      VisibilityAnalysis();
     }
   }
 };

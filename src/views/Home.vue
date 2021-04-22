@@ -90,7 +90,7 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([115.5985634205044, 32.43079913513041, 2000.0], {
+    camera.setView([112.419718, 37.927023, 2000.0], {
       heading: 0,
       pitch: -45,
       roll: 0
@@ -1444,7 +1444,7 @@ export default {
       //   height: 0,
       //   vertexFormat: this.Cesium.EllipsoidSurfaceAppearance.VERTEX_FORMAT
       // });
-      // var River1 = new this.Cesium.Primitive({
+      // var River1 = new this.Cesium.GroundPrimitive({
       //   geometryInstances: new this.Cesium.GeometryInstance({
       //     geometry: polygon1
       //   }),

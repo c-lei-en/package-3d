@@ -26,7 +26,7 @@ import Camera from "@/mapconfig/camera/camera";
 // import ViewShedStage from "@/mapconfig/viewshedAnalysis/ViewshedAnalysis";
 // import SubmergenceAnalysis from "@/mapconfig/floodAnalysis/FloodAnalysis";
 // import VideoOn from "@/mapconfig/videoOn/videoOn";
-import { VisibilityAnalysis } from "@/mapconfig/visibilityAnalysis/visibilityAnalysis";
+// import { VisibilityAnalysis } from "@/mapconfig/visibilityAnalysis/visibilityAnalysis";
 export default {
   name: "Home",
   mounted() {
@@ -90,7 +90,7 @@ export default {
     // scene.screenSpaceCameraController.enableLook = false;
 
     let camera = new Camera();
-    camera.setView([113, 23.1, 2000.0], {
+    camera.setView([115.5985634205044, 32.43079913513041, 2000.0], {
       heading: 0,
       pitch: -45,
       roll: 0
@@ -1420,7 +1420,53 @@ export default {
 
     // ? 通视分析
     {
-      VisibilityAnalysis();
+      // VisibilityAnalysis();
+    }
+
+    // ? 动态水纹
+    {
+      // let River1Point = [
+      //   115.5985634205044,
+      //   32.43079913513041,
+      //   116.5985634205044,
+      //   32.43079913513041,
+      //   116.5985634205044,
+      //   33.43079913513041,
+      //   115.5985634205044,
+      //   33.43079913513041
+      // ];
+      // //河道1多边形
+      // var polygon1 = new this.Cesium.PolygonGeometry({
+      //   polygonHierarchy: new this.Cesium.PolygonHierarchy(
+      //     this.Cesium.Cartesian3.fromDegreesArray(River1Point)
+      //   ),
+      //   extrudedHeight: 0,
+      //   height: 0,
+      //   vertexFormat: this.Cesium.EllipsoidSurfaceAppearance.VERTEX_FORMAT
+      // });
+      // var River1 = new this.Cesium.Primitive({
+      //   geometryInstances: new this.Cesium.GeometryInstance({
+      //     geometry: polygon1
+      //   }),
+      //   appearance: new this.Cesium.EllipsoidSurfaceAppearance({
+      //     aboveGround: true
+      //   }),
+      //   show: true
+      // });
+      // var River1_Material = new this.Cesium.Material({
+      //   fabric: {
+      //     type: "Water",
+      //     uniforms: {
+      //       normalMap: require("@/assets/waterNormals.jpg"),
+      //       frequency: 100.0,
+      //       animationSpeed: 0.01,
+      //       amplitude: 10.0
+      //     }
+      //   }
+      // });
+      // var scene = window.viewer.scene;
+      // River1.appearance.material = River1_Material;
+      // scene.primitives.add(River1); //添加到场景
     }
   }
 };

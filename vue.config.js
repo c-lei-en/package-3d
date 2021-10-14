@@ -56,7 +56,15 @@ module.exports = {
     ],
     module: {
       //解决Critical dependency: require function is used in a way in which dependencies cannot be statically extracted的问题
-      unknownContextCritical: false
+      unknownContextCritical: false,
+      rules: [
+        {
+          test: /\.js$/,
+          use: {
+            loader: "@open-wc/webpack-import-meta-loader"
+          }
+        }
+      ]
     }
   }
 };
